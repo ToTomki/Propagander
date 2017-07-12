@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table
 public class User {
     @Id
-    @Column(columnDefinition = "UNSIGNED INT(10)") // przypisanie do pola w bazie MySQL wartości unsigned oznacza, że pole nie przyjmuje wartości ujemnych, dzięki czemu obsłużyć można więcej liczb dodatnich
+    @Column(columnDefinition = "INT(7) UNSIGNED") // przypisanie do pola w bazie MySQL wartości unsigned oznacza, że pole nie przyjmuje wartości ujemnych, dzięki czemu obsłużyć można więcej liczb dodatnich
     @GeneratedValue // automatycznie generuje unikatową wartość dla tego pola
     private int idUser;
 

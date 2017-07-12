@@ -3,51 +3,55 @@ package pl.tomaszkubicz.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import pl.tomaszkubicz.model.ArticlesMySQL;
-import pl.tomaszkubicz.ProductRepository;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import pl.tomaszkubicz.model.ArticleMySQL;
+import pl.tomaszkubicz.ArticleRepository;
 
 @Controller
 public class MainController {
 
     @Autowired
-    public ProductRepository productRepository;
+    public ArticleRepository articleRepository;
 
-    //@RequestMapping(value = "/product/addProduct")
-    @RequestMapping(value="product/addProduct")
-    @ResponseBody //usunąć po
-    public String addProduct(){
-        StringBuilder feedback = new StringBuilder();
-
-        ArticlesMySQL task = new ArticlesMySQL()
-            .withproductName("Twarog")
-            .withproductPortionWeight(100.0)
-            .withproductProteins(10.0)
-            .withproductCarbo(0.1)
-            .withproductFats(3.0);
-
-            productRepository.save(task);
-        for(ArticlesMySQL i: productRepository.findAll()){
-            feedback.append(i).append("<br>");
-        }
-        return feedback.toString();
+    @GetMapping("/addArticle") // GetMapping is a shortcut of @RequestMapping(method RequestMethod.GET). Since few months there is no difference (before there was one, the consumes attribute)
+    public String formAddArticle(ModelMap modelMap){
+        modelMap.addAttribute("article", new ArticleMySQL());
+    return "addArticle";
     }
 
-    @RequestMapping("/")
-    public String mainList(){
+    @PostMapping("/someArticle")
+    public String someArticle(@ModelAttribute ArticleMySQL article, ModelMap modelMap){
+        modelMap.addAttribute("article", article);
+        return "article";
+
+    }
+
+//    @RequestMapping(value="article/addArticle")
+//    @ResponseBody //todo usunąć po
+//    public String addArticle(){
+//        StringBuilder feedback = new StringBuilder();
+//
+//        ArticleMySQL task = new ArticleMySQL()
+//                .witharticleContent("Jakastresc")
+//                .witharticleAuthor("Jakistam")
+//                .witharticleDislikes(0)
+//                .witharticleLikes(0)
+//                .witharticleImage("dsfdsfsdf.pl")
+//                .witharticleTitle("tytul");
+//
+//        articleRepository.save(task);
+//        for(ArticleMySQL i: articleRepository.findAll()){
+//            feedback.append(i).append("<br>");
+//        }
+//        return feedback.toString();
+//    }
+
+
+  /*  @RequestMapping("/")
+        public String mainList(){
         return "index";
-    }
-
-
-
-
-    @RequestMapping(value = "/product/{productData}", method = RequestMethod.GET)
-        public String getProductData(@PathVariable("productData") String productData, Model model){
-            ArticlesMySQL product = productRepository.findByProductName(productData);
-        return "product";
         }
+  */
 
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-//@EnableJpaRepositories(basePackageClasses = ProductRepository.class)
+//@EnableJpaRepositories(basePackageClasses = ArticleRepository.class)
 //@EnableJpaRepositories(basePackages="org.bluedolphin.spring.data.mysql")
 public class PropaganderApplication {
 
