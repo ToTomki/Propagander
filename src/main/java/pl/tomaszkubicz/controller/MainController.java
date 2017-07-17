@@ -20,12 +20,17 @@ public class MainController {
     return "addArticle";
     }
 
-    @PostMapping("/someArticle")
+    @PostMapping("/article/success")
     public String someArticle(@ModelAttribute ArticleMySQL article, ModelMap modelMap){
         modelMap.addAttribute("article", article);
-        return "article";
-
+        return "redirect:/article/success";
     }
+
+    @GetMapping("article/success")
+    public String success(){
+        return "article/success";
+    }
+
 
 //    @RequestMapping(value="article/addArticle")
 //    @ResponseBody //todo usunąć po

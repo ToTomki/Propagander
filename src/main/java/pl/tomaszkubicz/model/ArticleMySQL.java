@@ -9,10 +9,10 @@ public class ArticleMySQL {
 
     @Id
     @Column(name = "Id", columnDefinition = "INT(10) UNSIGNED")
-  //  @GeneratedValue
+    @GeneratedValue
     private int articleId;
 
-    @Column(name="Image")
+    @Column(name="Image") //@Column is optional
     private String articleImage; // name of img placed on the server or on an external hosting (in this case - www address)
 
     @Column(name="Title")
