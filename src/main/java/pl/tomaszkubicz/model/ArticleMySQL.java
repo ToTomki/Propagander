@@ -1,6 +1,9 @@
 package pl.tomaszkubicz.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "Articles") // if I don't need to change the name or other attribute, there can be just @Entity
@@ -9,15 +12,18 @@ public class ArticleMySQL {
 
     @Id
     @Column(name = "Id", columnDefinition = "INT(10) UNSIGNED")
-    @GeneratedValue
+    //todo @GeneratedValue
     private int articleId;
 
     @Column(name="Image") //@Column is optional
     private String articleImage; // name of img placed on the server or on an external hosting (in this case - www address)
 
     @Column(name="Title")
+    @NotEmpty(message = "Tytuł nie może być pusty")
+    @Min(value = 3, message = "Tytuł musi zawierać co najmniej trzy znaki")
     private String articleTitle;
 
+    @NotEmpty(message = "Należy podać treść artykulu")
     @Column(name= "Content")
     private String articleContent;
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Najlepsza propaganda w sieci!</title>
+</head>
+
+<body>
+Id:<br>
+<p th:text="${article.articleId}"></p>
+Image:<br>
+<p th:text="${article.articleImage}"></p>
+Title:<br>
+<p th:text="${article.articleTitle}"></p>
+Content:<br>
+<p th:text="${article.articleContent}"></p>
+Author:<br>
+<p th:text="${article.articleAuthor}"></p>
+Likes:<br>
+<p th:text="${article.articleLikes}"></p>
+Dislikes:<br>
+<p th:text="${article.articleDislikes}"></p>
+</body>
+</html>

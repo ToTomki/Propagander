@@ -5,31 +5,49 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import pl.tomaszkubicz.dao.ArticleDAO;
 import pl.tomaszkubicz.model.ArticleMySQL;
 import pl.tomaszkubicz.ArticleRepository;
 
 @Controller
-public class MainController {
+@RequestMapping(value = "/article")
+public class ArticleController {
+    @Autowired
+    ArticleDAO articleDAO;
 
     @Autowired
     public ArticleRepository articleRepository;
 
-    @GetMapping("/addArticle") // GetMapping is a shortcut of @RequestMapping(method RequestMethod.GET). Since few months there is no difference (before there was one, the consumes attribute)
+    @GetMapping("/add") // GetMapping is a shortcut of @RequestMapping(method RequestMethod.GET). Since few months there is no difference (before there was one, the consumes attribute)
     public String formAddArticle(ModelMap modelMap){
         modelMap.addAttribute("article", new ArticleMySQL());
-    return "addArticle";
+    return "article/add";
     }
 
-    @PostMapping("/article/success")
-    public String someArticle(@ModelAttribute ArticleMySQL article, ModelMap modelMap){
+    @PostMapping("/success")
+    public String newArticleSuccess(@ModelAttribute ArticleMySQL article, ModelMap modelMap){
         modelMap.addAttribute("article", article);
-        return "redirect:/article/success";
-    }
-
-    @GetMapping("article/success")
-    public String success(){
+        //return "redirect:/article/success";
+        articleDAO.save(article);
         return "article/success";
     }
+
+    @GetMapping("/success")
+    public String newArticleFailure(){
+        return "article/failure";
+    }
+
+    @GetMapping("/articleList")
+    public String articleList(ModelMap modelMap){
+        modelMap.addAttribute("articles", articleDAO.getAll());
+        return "article/articleList";
+    }
+
+//
+//    @GetMapping("/article/success")
+//    public String success(){
+//        return "article/success";
+//    }
 
 
 //    @RequestMapping(value="article/addArticle")
@@ -52,11 +70,5 @@ public class MainController {
 //        return feedback.toString();
 //    }
 
-
-  /*  @RequestMapping("/")
-        public String mainList(){
-        return "index";
-        }
-  */
 
 }
