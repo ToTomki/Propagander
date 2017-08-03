@@ -1,6 +1,6 @@
 package pl.tomaszkubicz.dao;
 
-import pl.tomaszkubicz.model.ArticleMySQL;
+import pl.tomaszkubicz.model.article.ArticleMySQL;
 
 import java.util.List;
 

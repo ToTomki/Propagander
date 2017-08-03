@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Najlepsza propaganda w sieci!</title>
+</head>
+<body>
+<form action="#" th:action="@{/user/addUser}" th:object="${user}" method="post">
+    <label>Pseudonim:<br> <input type="text" th:field="*{userName}" >
+        <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Coś jest nie tak z pseudonimem</span><br></label>
+    <label>Hasło:<br> <input type="text" th:field="*{userPassword}" >
+        <span th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}">Coś jest nie tak z hasłem</span><br></label>
+    <label>Płeć:<br> <select th:field="*{userSex}">
+        <option value="MALE">Męska</option>
+        <option value="FEMALE">Żeńska</option>
+    </select><br></label>
+    <label>Rola:<br> <select th:field="*{userRole}">
+        <option value="ADMIN">Administrator</option>
+        <option value="CHIEF">Redaktor naczelny</option>
+        <option value="REDACTOR">Redaktor</option>
+        <option value="USER">Użytkownik</option>
+    </select><br></label>
+    <input type="submit" value="Dodaj usera"/>
+</form>
+</body>
+</html>

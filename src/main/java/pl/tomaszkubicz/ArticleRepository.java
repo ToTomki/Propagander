@@ -1,9 +1,11 @@
 package pl.tomaszkubicz;
 
 import org.springframework.data.repository.CrudRepository;
-import pl.tomaszkubicz.model.ArticleMySQL;
+import org.springframework.stereotype.Repository;
+import pl.tomaszkubicz.model.article.ArticleMySQL;
 
-public interface ArticleRepository extends CrudRepository<ArticleMySQL, Long>{
+@Repository
+public interface ArticleRepository extends CrudRepository<ArticleMySQL, Long>{ // Long - type of Id
     ArticleMySQL findByArticleTitle (String articleTitle);
 
 }

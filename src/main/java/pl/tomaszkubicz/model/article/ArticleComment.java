@@ -1,4 +1,4 @@
-package pl.tomaszkubicz.model;
+package pl.tomaszkubicz.model.article;
 
 import javax.persistence.*;
 
@@ -25,4 +25,4 @@ public class ArticleComment {
 
     @Column (name = "Assignation")
     String assignation;
-}
+};

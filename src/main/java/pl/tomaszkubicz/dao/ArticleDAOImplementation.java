@@ -1,7 +1,7 @@
 package pl.tomaszkubicz.dao;
 
 import org.springframework.stereotype.Repository;
-import pl.tomaszkubicz.model.ArticleMySQL;
+import pl.tomaszkubicz.model.article.ArticleMySQL;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

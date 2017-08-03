@@ -12,4 +12,4 @@ public class PropaganderApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PropaganderApplication.class, args);
 	}
-}
+};
