@@ -3,6 +3,9 @@ package pl.tomaszkubicz.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,9 +17,10 @@ import pl.tomaszkubicz.model.article.ArticleMySQL;
 import pl.tomaszkubicz.ArticleRepository;
 import pl.tomaszkubicz.model.article.ArticleMySQLForm;
 import pl.tomaszkubicz.model.user.User;
-import pl.tomaszkubicz.service.Storage;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -37,6 +41,7 @@ public class ArticleController {
 
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+
 
     @GetMapping("/add")
     // GetMapping is a shortcut of @RequestMapping(method RequestMethod.GET). Since few months there is no difference (before there was one, the consumes attribute)
@@ -80,7 +85,7 @@ public class ArticleController {
         //}
     }
 
-    @GetMapping("{articleFile}")
+    @GetMapping("/{articleFile}")
     public String userData(@PathVariable("articleFile") Long articleFile, Model model) {
         ArticleMySQL article = articleRepository.findByArticleId(articleFile);
         //model.addAttribute("article", article);

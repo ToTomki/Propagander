@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Najlepsza propaganda w sieci!</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/login}" th:object="${user}" method="post">
+    <p>Pseudonim:<br> <input type="text" name="userName"/> </p>
+    <p>Hasło:<br> <input type="password" name="userPassword"/></p>
+    <input type="submit" value="Zaloguj"/></p>
+</form>
+</body>
+</html>

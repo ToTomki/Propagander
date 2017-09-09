@@ -5,10 +5,10 @@
     <title>Najlepsza propaganda w sieci!</title>
 </head>
 <body>
-<form action="#" th:action="@{/user/addUser}" th:object="${user}" method="post">
+<form action="#" th:action="@{/user/addUser}" enctype="multipart/form-data" th:object="${user}" method="post">
     <label>Pseudonim:<br> <input type="text" th:field="*{userName}" >
         <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Coś jest nie tak z pseudonimem</span><br></label>
-    <label>Hasło:<br> <input type="text" th:field="*{userPassword}" >
+    <label>Hasło:<br> <input type="password" th:field="*{userPassword}" >
         <span th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}">Coś jest nie tak z hasłem</span><br></label>
     <label>Płeć:<br> <select th:field="*{userSex}">
         <option value="MALE">Męska</option>
