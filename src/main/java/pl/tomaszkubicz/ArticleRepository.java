@@ -7,5 +7,5 @@ import pl.tomaszkubicz.model.article.ArticleMySQL;
 @Repository
 public interface ArticleRepository extends CrudRepository<ArticleMySQL, Long>{ // Long - type of Id
     ArticleMySQL findByArticleTitle (String articleTitle);
-
+    ArticleMySQL findByArticleId (Long articleId);
 }

@@ -5,7 +5,7 @@
     <title>Najlepsza propaganda w sieci!</title>
 </head>
 <body>
-<form action="#" th:action="@{/article/add}" th:object="${article}" method="post">
+<form action="#" th:action="@{/article/add}" enctype="multipart/form-data" th:object="${article}" method="post">
    <label>Image:<br> <input type="text" th:field="*{articleImage}" >
         <span th:if="${#fields.hasErrors('articleImage')}" th:errors="*{articleImage}">Coś jest nie tak z Img</span><br></label>
     <label>Title:<br> <input type="text" th:field="*{articleTitle}" >
@@ -13,11 +13,8 @@
     <label>Content:<br> <textarea rows="10" cols="15" th:field="*{articleContent}" /> <span th:if="${#fields.hasErrors('articleContent')}" th:errors="*{articleContent}">Coś jest nie tak z tekstem artykulu</span></label><br>
     <label>Author:<br> <input type="text" th:field="*{articleAuthor}" >
         <span th:if="${#fields.hasErrors('articleAuthor')}" th:errors="*{articleAuthor}">Coś jest nie tak z Autorem</span><br></label>
-    <label>Likes:<br> <input type="number" th:field="*{articleLikes}" >
-        <span th:if="${#fields.hasErrors('articleLikes')}" th:errors="*{articleLikes}">Coś jest nie tak z Lajkami</span><br></label>
-    <label>Dislikes:<br> <input type="number" th:field="*{articleDislikes}" >
-        <span th:if="${#fields.hasErrors('articleDislikes')}" th:errors="*{articleDislikes}">Coś jest nie tak z Dislajkami</span><br></label>
-    <input type="submit" value="Add article"/>
+    <p><input type="submit" value="Dodaj artykuł"/></p>
+    <!--todo autoadding the author-->
 </form>
 </body>
 </html>

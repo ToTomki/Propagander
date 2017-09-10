@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Najlepsza propaganda w sieci!</title>
+</head>
+
+<body><label th:object="${article}">
+<h1 th:text="*{articleTitle}"></h1>
+    <img th:src="@{articleImage}" alt="Wystąpił problem z ładowaniem zdjęcia">
+Napisano przez: <p th:text="*{articleAuthor}" text=", dnia: " th:text="*{articleDate}"></p>
+<p th:text="*{articleContent}"></p>
+<p text="Liczba polubień: " th:text="*{articleLikes}"></p>
+    <p text="Liczba znielubień: " th:text="*{articleDislikes}"></p>
+</label>
+</body>
+</body>
+</html>

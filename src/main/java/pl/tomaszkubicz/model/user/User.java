@@ -4,6 +4,8 @@ import pl.tomaszkubicz.model.user.enums.UserRole;
 import pl.tomaszkubicz.model.user.enums.UserSex;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -16,20 +18,23 @@ public class User {
     @Column(name="nickname")
     private String userName;
     @Enumerated(EnumType.STRING)
-    @Column(name="płeć")
+    @Column(name="sex")
     private UserSex userSex;
     @Enumerated(EnumType.STRING)
-    @Column(name="rola")
+    @Column(name="role")
     private UserRole userRole;
-    @Column(name="hasło")
+    @Column(name="password")
     private String userPassword;
+    @Column(name="last_comment")
+    private Timestamp userLastComment;
 
-    public User(Long userId, String userName, UserSex userSex, UserRole userRole, String userPassword) {
+    public User(Long userId, String userName, UserSex userSex, UserRole userRole, String userPassword, Timestamp userLastComment) {
         this.userId = userId;
         this.userName = userName;
         this.userSex = userSex;
         this.userRole = userRole;
         this.userPassword = userPassword;
+        this.userLastComment = userLastComment;
     }
 
     public User(){};
@@ -74,11 +79,29 @@ public class User {
         this.userPassword = userPassword;
     }
 
+    public Timestamp getUserLastComment() {return userLastComment;}
+
+    public void setUserLastComment(Timestamp userLastComment) {        this.userLastComment = userLastComment;}
+
     public User(UserForm userForm){
         this.userName = userForm.getUserName();
         this.userSex = userForm.getUserSex();
         this.userRole = userForm.getUserRole();
         this.userPassword = userForm.getUserPassword();
+        this.userLastComment = Timestamp.valueOf(LocalDateTime.now());
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userSex=" + userSex +
+                ", userRole=" + userRole +
+                ", userPassword='" + userPassword + '\'' +
+                ", userLastComment=" + userLastComment +
+                '}';
     }
 
 }
