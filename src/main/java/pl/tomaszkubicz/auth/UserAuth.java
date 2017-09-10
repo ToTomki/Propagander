@@ -22,6 +22,7 @@ public class UserAuth implements UserDetailsService {
     UserRepository userRepository;
 
 
+<<<<<<< HEAD
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         System.out.println("Drukuję loadUser 1, userName to: " + userName + ", tu po lewej powinien być userName. Pojawił się?");
         User user = userRepository.findByUserName(userName);
@@ -37,6 +38,15 @@ public class UserAuth implements UserDetailsService {
         org.springframework.security.core.userdetails.User springUser = new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), Arrays.asList(authority));
         UserDetails details = (UserDetails) springUser;
         System.out.println(springUser.toString());
+=======
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUserName(username);
+        if (user == null) throw new UsernameNotFoundException("Nie znaleziono użytkownika");
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getUserRole().toString());
+        org.springframework.security.core.userdetails.User springUser = new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), Arrays.asList(authority));
+        UserDetails details = (UserDetails) springUser;
+
+>>>>>>> a43201de1c9b974a3dd5a03d8f5fb3289473e819
         return details;
     }
 }

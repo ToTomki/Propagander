@@ -7,9 +7,14 @@
 <body>
 
 <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+<<<<<<< HEAD
     <p>Pseudonim:<br> <input type="text" th:field="*{userName}"/> </p>
     <p>Hasło:<br> <input type="password" th:field="*{userPassword}"/></p>
 
+=======
+    <p>Pseudonim:<br> <input type="text" name="userName"/> </p>
+    <p>Hasło:<br> <input type="password" name="userPassword"/></p>
+>>>>>>> a43201de1c9b974a3dd5a03d8f5fb3289473e819
     <input type="submit" value="Zaloguj"/></p>
 </form>
 </body>

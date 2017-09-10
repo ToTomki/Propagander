@@ -25,7 +25,11 @@ public class User {
     private UserRole userRole;
     @Column(name="password")
     private String userPassword;
+<<<<<<< HEAD
     @Column(name="last_comment")
+=======
+    @Column(name="ostatni_komentarz")
+>>>>>>> a43201de1c9b974a3dd5a03d8f5fb3289473e819
     private Timestamp userLastComment;
 
     public User(Long userId, String userName, UserSex userSex, UserRole userRole, String userPassword, Timestamp userLastComment) {
