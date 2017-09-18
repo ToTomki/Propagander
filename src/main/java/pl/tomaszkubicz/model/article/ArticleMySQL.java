@@ -8,7 +8,10 @@ package pl.tomaszkubicz.model.article;
         import javax.persistence.*;
         import java.sql.Timestamp;
         import java.time.LocalDateTime;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 
 @Entity
 @Table(name = "Articles") // if I don't need to change the name or enums attribute, there can be just @Entity
@@ -51,10 +54,16 @@ public class ArticleMySQL {
         this.articleImage = articleMySQLForm.getArticleImage();
         this.articleTitle = articleMySQLForm.getArticleTitle();
         this.articleContent = articleMySQLForm.getArticleContent();
+<<<<<<< HEAD
         this.articleLikes = 0;
         this.articleDislikes = 0;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.articleAuthor = authentication.getName();
+=======
+        this.articleAuthor = articleMySQLForm.getArticleAuthor();
+        this.articleLikes = 0;
+        this.articleDislikes = 0;
+>>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
         this.articleDate = Timestamp.valueOf(LocalDateTime.now());
     }
 

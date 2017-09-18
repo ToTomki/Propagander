@@ -1,19 +1,32 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+=======
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+>>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 <head>
     <meta charset="UTF-8"/>
     <title>Najlepsza propaganda w sieci!</title>
 </head>
 
+<<<<<<< HEAD
 <body><label th:object="${article}">
 <h1 th:text="*{articleTitle}"></h1>
     <p><img th:src="*{articleImage}" alt="Wystąpił problem z ładowaniem zdjęcia"></p>
 Napisano przez: <p th:text="*{articleAuthor}"></p>
     Data: <p th:text="*{articleDate}"></p>
+=======
+<<<<<<< HEAD
+<body><label th:object="${article}">
+<h1 th:text="*{articleTitle}"></h1>
+    <img th:src="@{articleImage}" alt="Wystąpił problem z ładowaniem zdjęcia">
+Napisano przez: <p th:text="*{articleAuthor}" text=", dnia: " th:text="*{articleDate}"></p>
+>>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 <p th:text="*{articleContent}"></p>
 <p text="Liczba polubień: " th:text="*{articleLikes}"></p>
     <p text="Liczba znielubień: " th:text="*{articleDislikes}"></p>
 </label>
+<<<<<<< HEAD
 <br>
 <br>
 <form action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
@@ -25,5 +38,14 @@ Napisano przez: <p th:text="*{articleAuthor}"></p>
     <p><input type="submit" value="Dodaj komentarz"/></p>
 </form>
 </label>
+=======
+</body>
+=======
+<body>
+
+
+
+>>>>>>> a43201de1c9b974a3dd5a03d8f5fb3289473e819
+>>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 </body>
 </html>
