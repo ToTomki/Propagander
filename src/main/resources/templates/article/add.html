@@ -6,26 +6,14 @@
 </head>
 <body>
 <form action="#" th:action="@{/article/add}" enctype="multipart/form-data" th:object="${article}" method="post">
-<<<<<<< HEAD
    <label>Link do zdjęcia:<br> <input type="text" th:field="*{articleImage}" >
-=======
-   <label>Image:<br> <input type="text" th:field="*{articleImage}" >
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
         <span th:if="${#fields.hasErrors('articleImage')}" th:errors="*{articleImage}">Coś jest nie tak z Img</span><br></label>
     <label>Tytuł:<br> <input type="text" th:field="*{articleTitle}" >
         <span th:if="${#fields.hasErrors('articleTitle')}" th:errors="*{articleTitle}">Coś jest nie tak z Tytulem</span><br></label>
-<<<<<<< HEAD
     <label>Treść:<br> <textarea rows="10" cols="15" th:field="*{articleContent}" /> <span th:if="${#fields.hasErrors('articleContent')}" th:errors="*{articleContent}">Coś jest nie tak z tekstem artykulu</span></label><br>
 
     <p><input type="submit" value="Dodaj artykuł"/></p>
 
-=======
-    <label>Content:<br> <textarea rows="10" cols="15" th:field="*{articleContent}" /> <span th:if="${#fields.hasErrors('articleContent')}" th:errors="*{articleContent}">Coś jest nie tak z tekstem artykulu</span></label><br>
-    <label>Author:<br> <input type="text" th:field="*{articleAuthor}" >
-        <span th:if="${#fields.hasErrors('articleAuthor')}" th:errors="*{articleAuthor}">Coś jest nie tak z Autorem</span><br></label>
-    <p><input type="submit" value="Dodaj artykuł"/></p>
-    <!--todo autoadding the author-->
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 </form>
 </body>
 </html>

@@ -1,50 +1,21 @@
 package pl.tomaszkubicz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-=======
-<<<<<<< HEAD
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-=======
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
->>>>>>> a43201de1c9b974a3dd5a03d8f5fb3289473e819
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
 import pl.tomaszkubicz.dao.ArticleRepository;
-=======
-<<<<<<< HEAD
-=======
-import pl.tomaszkubicz.OptionalUserRepository;
-import pl.tomaszkubicz.UserRepository;
->>>>>>> a43201de1c9b974a3dd5a03d8f5fb3289473e819
-import pl.tomaszkubicz.model.UserInfo;
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 import pl.tomaszkubicz.model.user.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-import java.util.Optional;
->>>>>>> a43201de1c9b974a3dd5a03d8f5fb3289473e819
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 
 @Controller
 public class MainController {
 
-<<<<<<< HEAD
 @Autowired
 ArticleRepository articleRepository;
 
@@ -59,17 +30,6 @@ ArticleRepository articleRepository;
 //        catch (Exception e){
 //            System.out.println("Znalezienie topów okazało się problemem");
 //        }
-=======
-
-//    @Autowired
-//    OptionalUserRepository optionalUserRepository;
-
-    @Autowired
-    UserInfo userInfo;
-
-    @GetMapping("/")
-    public String mainPage(){
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
         return "/mainPage";
     }
 
@@ -90,11 +50,7 @@ ArticleRepository articleRepository;
 
 //
 //        Optional<User> user = optionalUserRepository.findByUserName(userName);
-<<<<<<< HEAD
 //        if(encoder.encodePassword(userPassword, null).equals(user.get().getPassword())) {
-=======
-//        if(encoder.encodePassword(userPassword, null).equals(user.get().getUserPassword())) {
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 //            userInfo.setLogged(true);
 //            userInfo.setUser(user.get());
 //            model.addAttribute("info", "Zostałeś zalogowany poprawnie");
@@ -102,11 +58,7 @@ ArticleRepository articleRepository;
 //        return "mainPage";
 //        }
 //        System.out.println("USERNAME: " + userName + ", A USERHASłO: " + userPassword);
-<<<<<<< HEAD
 //        System.out.println(user.get().getUsername() + ", a teraz hasło: " + user.get().getPassword());
-=======
-//        System.out.println(user.get().getUserName() + ", a teraz hasło: " + user.get().getUserPassword());
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 //        model.addAttribute("info", "Nie udało Ci się zalogować");
 //        return "mainPage";
 //    }

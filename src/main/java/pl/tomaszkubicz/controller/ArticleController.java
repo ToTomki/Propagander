@@ -3,10 +3,6 @@ package pl.tomaszkubicz.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-<<<<<<< HEAD
-=======
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,12 +16,6 @@ import pl.tomaszkubicz.dao.ArticleRepository;
 import pl.tomaszkubicz.model.article.ArticleMySQLForm;
 import pl.tomaszkubicz.model.user.User;
 
-<<<<<<< HEAD
-=======
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +32,6 @@ public class ArticleController {
 
     @Autowired
     UserRepository userRepository;
-
 
     @GetMapping("/add")
     // GetMapping is a shortcut of @RequestMapping(method RequestMethod.GET). Since few months there is no difference (before there was one, the consumes attribute)
@@ -88,20 +77,10 @@ public class ArticleController {
     public String userData(@PathVariable("articleFile") Long articleFile, Model model) {
         ArticleMySQL article = articleRepository.findByArticleId(articleFile);
         model.addAttribute("article", article);
-<<<<<<< HEAD
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("actualUser", authentication.getName());
         System.out.println("Imię usera = " + authentication.getName());
         model.addAttribute("newCommentForm", new ArticleCommentForm());
-=======
-        //todo I should change attributes to add one article and using it's fields.
-//        model.addAttribute("articleDate", article.getArticleDate().toString().substring(0,16));
-//        model.addAttribute("articleImage", article.getArticleImage());
-//        model.addAttribute("articleAuthor", article.getArticleAuthor());
-//        model.addAttribute("articleContent", article.getArticleContent());
-//        model.addAttribute("articleLikes", article.getArticleLikes());
-//        model.addAttribute("articleDislikes", article.getArticleDislikes());
->>>>>>> 87983a5965a805ff3fadbf39929d56802a9936fc
         return "article/articleFile";
     }
 
