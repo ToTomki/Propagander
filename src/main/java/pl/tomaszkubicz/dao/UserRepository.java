@@ -1,5 +1,6 @@
-package pl.tomaszkubicz;
+package pl.tomaszkubicz.dao;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.tomaszkubicz.model.user.User;
@@ -12,5 +13,5 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long>{
     User findByUserId (Long userId);
     User findByUserRole (UserRole userRole);
-    User findByUserName (String userName);
+    User findByUsername (String username);
 }
