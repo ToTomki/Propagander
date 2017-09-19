@@ -30,11 +30,7 @@ public class User {
     private String password;
     @Column(name="last_comment")
     private Timestamp userLastComment;
-<<<<<<< HEAD
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-=======
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
->>>>>>> 417a7349f1b6e0d6d5168a1965250dc99c1f6b99
 //    @Transient
     private ArrayList<ArticleComment> userComments;
 

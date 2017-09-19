@@ -24,11 +24,7 @@ public class ArticleComment {
     String commentContent;
     @Column (name = "Title")
     String commentTitle;
-<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
-=======
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
->>>>>>> 417a7349f1b6e0d6d5168a1965250dc99c1f6b99
     @JoinColumn(name = "userId")
     private User user;
     private String anonUsername;
