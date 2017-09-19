@@ -1,42 +1,37 @@
 package pl.tomaszkubicz.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import pl.tomaszkubicz.dao.ArticleDAO;
+import pl.tomaszkubicz.dao.ArticleCommentRepository;
+import pl.tomaszkubicz.dao.UserRepository;
+import pl.tomaszkubicz.model.article.ArticleComment;
+import pl.tomaszkubicz.model.article.ArticleCommentForm;
 import pl.tomaszkubicz.model.article.ArticleMySQL;
-import pl.tomaszkubicz.ArticleRepository;
+import pl.tomaszkubicz.dao.ArticleRepository;
 import pl.tomaszkubicz.model.article.ArticleMySQLForm;
 import pl.tomaszkubicz.model.user.User;
-import pl.tomaszkubicz.service.Storage;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/article")
 public class ArticleController {
+
     @Autowired
-    ArticleDAO articleDAO;
+    ArticleCommentRepository commentRepository;
 
     @Autowired
     ArticleRepository articleRepository;
 
-
-    private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/add")
     // GetMapping is a shortcut of @RequestMapping(method RequestMethod.GET). Since few months there is no difference (before there was one, the consumes attribute)
@@ -46,7 +41,6 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    //@ResponseBody
     public String newArticleSuccess(@ModelAttribute("article") @Valid ArticleMySQLForm newArticle/*, @RequestParam("image") MultipartFile image*/, BindingResult result) {
 
         if (result.hasErrors()) {
@@ -66,7 +60,6 @@ public class ArticleController {
 //                stream.write(bytes);
 //                stream.close();
         //I need to change it in the future. Images should be stored outside the server (on amazon, google or smth like that)
-
         articleRepository.save(article);
         return "article/success";
         //          } catch (Exception e) {
@@ -80,27 +73,38 @@ public class ArticleController {
         //}
     }
 
-    @GetMapping("{articleFile}")
+    @GetMapping("/{articleFile}")
     public String userData(@PathVariable("articleFile") Long articleFile, Model model) {
         ArticleMySQL article = articleRepository.findByArticleId(articleFile);
-        //model.addAttribute("article", article);
-        //todo I should change attributes to add one article and using it's fields.
-        model.addAttribute("articleDate", article.getArticleDate().toString().substring(0,16));
-        model.addAttribute("articleImage", article.getArticleImage());
-        model.addAttribute("articleAuthor", article.getArticleAuthor());
-        model.addAttribute("articleContent", article.getArticleContent());
-        model.addAttribute("articleLikes", article.getArticleLikes());
-        model.addAttribute("articleDislikes", article.getArticleDislikes());
-        return "article/articleData";
+        model.addAttribute("article", article);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("actualUser", authentication.getName());
+        System.out.println("Imię usera = " + authentication.getName());
+        model.addAttribute("newCommentForm", new ArticleCommentForm());
+        return "article/articleFile";
+    }
+
+    @PostMapping("/addComment")
+    @ResponseBody
+    public String addComment(@ModelAttribute("newComment") ArticleCommentForm newComment, @ModelAttribute("actualUser") String anonUsername){
+
+        ArticleComment articleComment = new ArticleComment(newComment);
+        //ArrayList<ArticleComment> commentList = new ArrayList<ArticleComment>();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authName = authentication.getName();
+        if(authName != null){
+        User user = userRepository.findByUsername(authName);
+        articleComment.setUser(user);
+        user.getUserComments().add(articleComment);
+        userRepository.save(user);//Repository.save() is a dual purposed method for Insert as well as Update
+        }
+        else articleComment.setAnonUsername(anonUsername);
+        commentRepository.save(articleComment);
+
+        return "Komentarz dodany";
     }
 
 
-
-    @PostMapping("/articleList")
-    public String articleList(ModelMap modelMap) {
-        modelMap.addAttribute("articles", articleDAO.getAll());
-        return "article/articleList";
-    }
 
 
 }

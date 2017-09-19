@@ -6,19 +6,19 @@ import pl.tomaszkubicz.model.user.enums.UserSex;
 
 public class UserForm {
 
-    private String userName;
+    private String username;
     private UserSex userSex;
     private UserRole userRole;
-    private String userPassword;
+    private String password;
 
     public UserForm(){};
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public UserSex getUserSex() {
@@ -37,34 +37,34 @@ public class UserForm {
         this.userRole = userRole;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 
     private UserForm(Builder builder) {
-        this.userName = builder.userName;
+        this.username = builder.username;
         this.userSex= builder.userSex;
         this.userRole = builder.userRole;
-        this.userPassword = builder.userPassword;
+        this.password = builder.password;
     }
 
 
     public static class Builder{
-        private String userName;
+        private String username;
         private UserSex userSex;
         private UserRole userRole;
-        private String userPassword;
+        private String password;
 
-        public Builder (String userName, UserSex userSex, UserRole userRole, String userPassword){
-            this.userName = userName;
+        public Builder (String username, UserSex userSex, UserRole userRole, String password){
+            this.username = username;
             this.userSex = userSex;
             this.userRole = userRole;
-            this.userPassword = userPassword;
+            this.password = password;
         }
 
 

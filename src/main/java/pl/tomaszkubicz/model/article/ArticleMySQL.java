@@ -1,6 +1,14 @@
 package pl.tomaszkubicz.model.article;
 
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.security.core.Authentication;
+        import org.springframework.security.core.context.SecurityContextHolder;
+        import pl.tomaszkubicz.auth.UserAuth;
+
         import javax.persistence.*;
+        import java.sql.Timestamp;
+        import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "Articles") // if I don't need to change the name or enums attribute, there can be just @Entity
@@ -12,9 +20,9 @@ public class ArticleMySQL {
     private Long articleId;
     @Column(name="Obrazek") //@Column is optional
     private String articleImage; // name of img placed on the server or on an external hosting (in this case - www address)
-    @Column(name="Tytuł")
+    @Column(name="Tytul")
     private String articleTitle;
-    @Column(name= "Zawartość")
+    @Column(name= "Zawartosc")
     private String articleContent;
     @Column(name="Autor")
     private String articleAuthor;
@@ -22,20 +30,13 @@ public class ArticleMySQL {
     private int articleLikes;
     @Column(name="Znielubienia")
     private int articleDislikes;
+    @Column(name="Data")
+    private Timestamp articleDate;
 
     public ArticleMySQL() {
     }
 
-    public ArticleMySQL(ArticleMySQLForm articleMySQLForm){
-        this.articleImage = articleMySQLForm.getArticleImage();
-        this.articleTitle = articleMySQLForm.getArticleTitle();
-        this.articleContent = articleMySQLForm.getArticleContent();
-        this.articleAuthor = articleMySQLForm.getArticleAuthor();
-        this.articleLikes = articleMySQLForm.getArticleLikes();
-        this.articleDislikes = articleMySQLForm.getArticleDislikes();
-    }
-
-    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes) { // there's no need to use builder pattern - constructor will be almost never used
+    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes, Timestamp articleDate) {
         this.articleId = articleId;
         this.articleImage = articleImage;
         this.articleTitle = articleTitle;
@@ -43,8 +44,19 @@ public class ArticleMySQL {
         this.articleAuthor = articleAuthor;
         this.articleLikes = articleLikes;
         this.articleDislikes = articleDislikes;
+        this.articleDate = articleDate;
     }
 
+    public ArticleMySQL(ArticleMySQLForm articleMySQLForm){
+        this.articleImage = articleMySQLForm.getArticleImage();
+        this.articleTitle = articleMySQLForm.getArticleTitle();
+        this.articleContent = articleMySQLForm.getArticleContent();
+        this.articleLikes = 0;
+        this.articleDislikes = 0;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        this.articleAuthor = authentication.getName();
+        this.articleDate = Timestamp.valueOf(LocalDateTime.now());
+    }
 
 
     public Long getArticleId() {
@@ -102,5 +114,10 @@ public class ArticleMySQL {
     public void setArticleDislikes(int articleDislikes) {
         this.articleDislikes = articleDislikes;
     }
+
+    public Timestamp getArticleDate() {return articleDate;}
+
+    public void setArticleDate(Timestamp articleDate) {this.articleDate = articleDate;}
+
 
 };

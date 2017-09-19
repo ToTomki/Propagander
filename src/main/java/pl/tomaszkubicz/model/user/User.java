@@ -1,9 +1,14 @@
 package pl.tomaszkubicz.model.user;
 
+import pl.tomaszkubicz.model.article.ArticleComment;
 import pl.tomaszkubicz.model.user.enums.UserRole;
 import pl.tomaszkubicz.model.user.enums.UserSex;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -14,22 +19,29 @@ public class User {
     @GeneratedValue // automatycznie generuje unikatową wartość dla tego pola
     private Long userId;
     @Column(name="nickname")
-    private String userName;
+    private String username;
     @Enumerated(EnumType.STRING)
-    @Column(name="płeć")
+    @Column(name="sex")
     private UserSex userSex;
     @Enumerated(EnumType.STRING)
-    @Column(name="rola")
+    @Column(name="role")
     private UserRole userRole;
-    @Column(name="hasło")
-    private String userPassword;
+    @Column(name="password")
+    private String password;
+    @Column(name="last_comment")
+    private Timestamp userLastComment;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+//    @Transient
+    private ArrayList<ArticleComment> userComments;
 
-    public User(Long userId, String userName, UserSex userSex, UserRole userRole, String userPassword) {
+    public User(Long userId, String username, UserSex userSex, UserRole userRole, String password, Timestamp userLastComment, ArrayList<ArticleComment> userComments) {
         this.userId = userId;
-        this.userName = userName;
+        this.username = username;
         this.userSex = userSex;
         this.userRole = userRole;
-        this.userPassword = userPassword;
+        this.password = password;
+        this.userLastComment = userLastComment;
+        this.userComments = userComments;
     }
 
     public User(){};
@@ -42,12 +54,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public UserSex getUserSex() {
@@ -66,19 +78,44 @@ public class User {
         this.userRole = userRole;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+    public Timestamp getUserLastComment() {return userLastComment;}
+
+    public void setUserLastComment(Timestamp userLastComment) {        this.userLastComment = userLastComment;}
+
+//    @Transient
+    public ArrayList<ArticleComment> getUserComments() {        return userComments;}
+
+    public void setUserComments(ArrayList<ArticleComment> userComments) {this.userComments = userComments;}
+
 
     public User(UserForm userForm){
-        this.userName = userForm.getUserName();
+        this.username = userForm.getUsername();
         this.userSex = userForm.getUserSex();
         this.userRole = userForm.getUserRole();
-        this.userPassword = userForm.getUserPassword();
+        this.password = userForm.getPassword();
+        this.userLastComment = Timestamp.valueOf(LocalDateTime.now());
+        this.userComments = null;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", userSex=" + userSex +
+                ", userRole=" + userRole +
+                ", password='" + password + '\'' +
+                ", userLastComment=" + userLastComment +
+                '}';
     }
 
 }
