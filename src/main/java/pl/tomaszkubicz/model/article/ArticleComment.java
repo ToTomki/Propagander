@@ -13,7 +13,7 @@ public class ArticleComment {
     @Id
     @Column(columnDefinition = "INT(13) UNSIGNED")
     @GeneratedValue(strategy=GenerationType.AUTO)
-    int commentId;
+    Long commentId;
     @Column (name = "Anonymous")
     boolean commentAnonymous;
     @Column (name = "Author")
@@ -25,11 +25,11 @@ public class ArticleComment {
     @Column (name = "Title")
     String commentTitle;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user")
     private User user;
     private String anonUsername;
 
-    public ArticleComment(int commentId, boolean commentAnonymous, String commentAuthor, Timestamp commentDate, String commentContent, String commentTitle, User user, String anonUsername) {
+    public ArticleComment(Long commentId, boolean commentAnonymous, String commentAuthor, Timestamp commentDate, String commentContent, String commentTitle, User user, String anonUsername) {
         this.commentId = commentId;
         this.commentAnonymous = commentAnonymous;
         this.commentAuthor = commentAuthor;
@@ -54,11 +54,11 @@ public class ArticleComment {
     }
 
 
-    public int getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(Long commentId) {
         this.commentId = commentId;
     }
 
@@ -113,4 +113,21 @@ public class ArticleComment {
     public String getAnonUsername() { return anonUsername; }
 
     public void setAnonUsername(String anonUsername) { this.anonUsername = anonUsername; }
+
+
+    @Override
+    public String toString() {
+        return "ArticleComment{" +
+                "commentId=" + commentId +
+                ", commentAnonymous=" + commentAnonymous +
+                ", commentAuthor='" + commentAuthor + '\'' +
+                ", commentDate=" + commentDate +
+                ", commentContent='" + commentContent + '\'' +
+                ", commentTitle='" + commentTitle + '\'' +
+                ", user=" + user +
+                ", anonUsername='" + anonUsername + '\'' +
+                '}';
+    }
+
+
 }

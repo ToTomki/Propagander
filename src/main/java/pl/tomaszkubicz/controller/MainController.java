@@ -20,6 +20,7 @@ public class MainController {
 ArticleRepository articleRepository;
 
     @GetMapping("/")
+    @ResponseBody
     public String mainPage(){
 //        try {
 //            ArrayList<ArticleMySQL> mainPageArticles = articleRepository.findTop15ByArticleId();
@@ -30,7 +31,7 @@ ArticleRepository articleRepository;
 //        catch (Exception e){
 //            System.out.println("Znalezienie topów okazało się problemem");
 //        }
-        return "/mainPage";
+        return "Oto główna strona aplikacji";
     }
 
     @GetMapping("/login")

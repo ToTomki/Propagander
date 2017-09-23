@@ -16,7 +16,7 @@ public class User {
 
     @Id
     @Column(columnDefinition = "INT(7) UNSIGNED", name="Id") // UNSIGNED means int>-1, so there's bigger possible number
-    @GeneratedValue // automatycznie generuje unikatową wartość dla tego pola
+    @GeneratedValue // value of this field will be generated automatically
     private Long userId;
     @Column(name="nickname")
     private String username;
@@ -32,9 +32,9 @@ public class User {
     private Timestamp userLastComment;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
 //    @Transient
-    private ArrayList<ArticleComment> userComments;
+    private List<ArticleComment> userComments;
 
-    public User(Long userId, String username, UserSex userSex, UserRole userRole, String password, Timestamp userLastComment, ArrayList<ArticleComment> userComments) {
+    public User(Long userId, String username, UserSex userSex, UserRole userRole, String password, Timestamp userLastComment, List<ArticleComment> userComments) {
         this.userId = userId;
         this.username = username;
         this.userSex = userSex;
@@ -91,9 +91,9 @@ public class User {
     public void setUserLastComment(Timestamp userLastComment) {        this.userLastComment = userLastComment;}
 
 //    @Transient
-    public ArrayList<ArticleComment> getUserComments() {        return userComments;}
+    public List<ArticleComment> getUserComments() {        return userComments;}
 
-    public void setUserComments(ArrayList<ArticleComment> userComments) {this.userComments = userComments;}
+    public void setUserComments(List<ArticleComment> userComments) {this.userComments = userComments;}
 
 
     public User(UserForm userForm){

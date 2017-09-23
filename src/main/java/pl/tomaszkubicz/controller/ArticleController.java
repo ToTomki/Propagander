@@ -74,8 +74,8 @@ public class ArticleController {
     }
 
     @GetMapping("/{articleFile}")
-    public String userData(@PathVariable("articleFile") Long articleFile, Model model) {
-        ArticleMySQL article = articleRepository.findByArticleId(articleFile);
+    public String userData(@PathVariable("articleFile") String articleFile, Model model) {
+        ArticleMySQL article = articleRepository.findByArticleId(Long.valueOf(articleFile));
         model.addAttribute("article", article);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("actualUser", authentication.getName());
@@ -105,6 +105,12 @@ public class ArticleController {
     }
 
 
+    @GetMapping("/comment/{comment}")
+    @ResponseBody
+    public String showComment(@PathVariable("comment") Long commentId){
+        ArticleComment comment = commentRepository.findByCommentId(commentId);
 
+        return comment.toString();
+    }
 
 }

@@ -28,12 +28,9 @@ public class ArticleCommentForm {
         this.commentAuthor = commentAuthor;
         this.commentContent = commentContent;
         this.commentTitle = commentTitle;
-        if(!this.commentAnonymous){
-            this.commentUser = null;
-        }
+        this.commentUser = commentUser;
 //            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //            this.commentUser = userRepository.findByUsername(authentication.getName());}
-        else this.commentUser = null;
         this.anonUsername = anonUsername;
     }
 
