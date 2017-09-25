@@ -53,9 +53,9 @@ ArticleRepository articleRepository;
 //        Optional<User> user = optionalUserRepository.findByUserName(userName);
 //        if(encoder.encodePassword(userPassword, null).equals(user.get().getPassword())) {
 //            userInfo.setLogged(true);
-//            userInfo.setUser(user.get());
+//            userInfo.setCommentedby(user.get());
 //            model.addAttribute("info", "Zostałeś zalogowany poprawnie");
-//            System.out.println(userInfo.getUser().toString());
+//            System.out.println(userInfo.getCommentedby().toString());
 //        return "mainPage";
 //        }
 //        System.out.println("USERNAME: " + userName + ", A USERHASłO: " + userPassword);

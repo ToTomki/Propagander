@@ -12,16 +12,16 @@ public class ArticleCommentForm {
     @Autowired
     UserRepository userRepository;
 
-    boolean commentAnonymous;
+    private boolean commentAnonymous;
     @Size(min = 3, max = 35, message = "Komentarz powinien zawierać od 3 do 35znaków")
-    String commentAuthor;
+    private String commentAuthor;
     @Size(min = 3, max = 300, message = "Komentarz powinien zawierać od 3 do 300znaków")
     @NotNull(message = "Należy podać treść komentarza")
-    String commentContent;
+    private String commentContent;
     @NotNull(message = "Należy podać tytuł komentarza")
-    String commentTitle;
+    private String commentTitle;
     User commentUser;
-    String anonUsername;
+    private String anonUsername;
 
     public ArticleCommentForm(boolean commentAnonymous, String commentAuthor, String commentContent, String commentTitle, User commentUser, String anonUsername) {
         this.commentAnonymous = commentAnonymous;

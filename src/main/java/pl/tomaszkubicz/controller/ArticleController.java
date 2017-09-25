@@ -17,8 +17,8 @@ import pl.tomaszkubicz.model.article.ArticleMySQLForm;
 import pl.tomaszkubicz.model.user.User;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping(value = "/article")
@@ -94,8 +94,9 @@ public class ArticleController {
         String authName = authentication.getName();
         if(authName != null){
         User user = userRepository.findByUsername(authName);
-        articleComment.setUser(user);
+        articleComment.setCommentedby(user);
         user.getUserComments().add(articleComment);
+        user.setUserLastComment(Timestamp.valueOf(LocalDateTime.now()));
         userRepository.save(user);//Repository.save() is a dual purposed method for Insert as well as Update
         }
         else articleComment.setAnonUsername(anonUsername);

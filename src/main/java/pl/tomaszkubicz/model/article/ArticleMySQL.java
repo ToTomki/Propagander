@@ -8,6 +8,7 @@ package pl.tomaszkubicz.model.article;
         import javax.persistence.*;
         import java.sql.Timestamp;
         import java.time.LocalDateTime;
+        import java.util.List;
 
 
 @Entity
@@ -32,11 +33,13 @@ public class ArticleMySQL {
     private int articleDislikes;
     @Column(name="Data")
     private Timestamp articleDate;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "commentedArticle")
+    private List <ArticleComment> commentList;
 
     public ArticleMySQL() {
     }
 
-    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes, Timestamp articleDate) {
+    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes, Timestamp articleDate, List commentList) {
         this.articleId = articleId;
         this.articleImage = articleImage;
         this.articleTitle = articleTitle;
@@ -45,6 +48,7 @@ public class ArticleMySQL {
         this.articleLikes = articleLikes;
         this.articleDislikes = articleDislikes;
         this.articleDate = articleDate;
+        this.commentList = commentList;
     }
 
     public ArticleMySQL(ArticleMySQLForm articleMySQLForm){
@@ -117,7 +121,11 @@ public class ArticleMySQL {
 
     public Timestamp getArticleDate() {return articleDate;}
 
-    public void setArticleDate(Timestamp articleDate) {this.articleDate = articleDate;}
+    public void setArticleDate(Timestamp articleDate) {this.articleDate = articleDate; }
+
+    public List getCommentList() { return commentList; }
+
+    public void setCommentList(List commentList) { this.commentList = commentList; }
 
 
 };

@@ -13,30 +13,33 @@ public class ArticleComment {
     @Id
     @Column(columnDefinition = "INT(13) UNSIGNED")
     @GeneratedValue(strategy=GenerationType.AUTO)
-    Long commentId;
+    private Long commentId;
     @Column (name = "Anonymous")
-    boolean commentAnonymous;
+    private boolean commentAnonymous;
     @Column (name = "Author")
-    String commentAuthor;
+    private String commentAuthor;
     @Column (name = "Date")
-    Timestamp commentDate;
+    private Timestamp commentDate;
     @Column (name = "Content")
-    String commentContent;
+    private String commentContent;
     @Column (name = "Title")
-    String commentTitle;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user")
-    private User user;
+    private String commentTitle;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "commentedby")
+    private User commentedby;
     private String anonUsername;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "related_to_article")
+    private ArticleMySQL commentedArticle;
 
-    public ArticleComment(Long commentId, boolean commentAnonymous, String commentAuthor, Timestamp commentDate, String commentContent, String commentTitle, User user, String anonUsername) {
+    public ArticleComment(Long commentId, boolean commentAnonymous, String commentAuthor, Timestamp commentDate, String commentContent, String commentTitle, User commentedby, String anonUsername) {
         this.commentId = commentId;
         this.commentAnonymous = commentAnonymous;
         this.commentAuthor = commentAuthor;
         this.commentDate = commentDate;
         this.commentContent = commentContent;
         this.commentTitle = commentTitle;
-        this.user = user;
+        this.commentedby = commentedby;
         this.anonUsername = anonUsername;
     }
 
@@ -44,12 +47,12 @@ public class ArticleComment {
 
     public ArticleComment(ArticleCommentForm articleCommentForm){
         this.commentAnonymous = articleCommentForm.isCommentAnonymous();
-        if(articleCommentForm.commentAnonymous) this.commentAuthor = articleCommentForm.getCommentAuthor();
+        if(articleCommentForm.isCommentAnonymous()) this.commentAuthor = articleCommentForm.getCommentAuthor();
         else this.commentAuthor = "User";
         this.commentDate = Timestamp.valueOf(LocalDateTime.now());
         this.commentContent = articleCommentForm.getCommentContent();
         this.commentTitle = articleCommentForm.getCommentTitle();
-        this.user = articleCommentForm.getCommentUser();
+        this.commentedby = articleCommentForm.getCommentUser();
         this.anonUsername = articleCommentForm.getAnonUsername();
     }
 
@@ -102,12 +105,12 @@ public class ArticleComment {
         this.commentTitle = commentTitle;
     }
 
-    public User getUser() {
-        return user;
+    public User getCommentedby() {
+        return commentedby;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCommentedby(User commentedby) {
+        this.commentedby = commentedby;
     }
 
     public String getAnonUsername() { return anonUsername; }
@@ -124,7 +127,7 @@ public class ArticleComment {
                 ", commentDate=" + commentDate +
                 ", commentContent='" + commentContent + '\'' +
                 ", commentTitle='" + commentTitle + '\'' +
-                ", user=" + user +
+                ", commentedby=" + commentedby +
                 ", anonUsername='" + anonUsername + '\'' +
                 '}';
     }
