@@ -39,6 +39,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/article/{articleFile}", "/logout").hasAnyAuthority("ADMIN", "CHIEF", "REDACTOR", "USER")
                     .antMatchers("/user/addUser", "/", "/user/{userData}", "/login", "/403").permitAll()
                     .antMatchers("/article/add").hasAnyAuthority("ADMIN", "CHIEF", "REDACTOR")
+                    .antMatchers("/resources/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
