@@ -1,6 +1,5 @@
 # Propagander
-Projekt (portal informacyjny) pisany jest w Javie, przy wykorzystaniu frameworka Spring (z użyciem Spring Boota). 
-Aplikacja łączy się z bazą danych mySQL. Za zabezpieczenia odpowiada Spring Security. Hasło użytkownika jest zahashowane. 
-Występuje podział elementów aplikacji według kategorii: model, view, controller. Tworzone są obecnie relacje między encjami. 
-Za warstwę front-endową odpowiada Bootstrap. 
-Projekt wykorzystuje gradle’a.
+Project (web portal) is written in Java using Spring Framework (Spring Boot), mySQL, Spring Security, gradle.
+Main elements of application are placed in three categories: model, view, controller. User passwords are hashed.
+Entities are connected by relationships.
+Front-end layer will be created with the use of Bootstrap (work in progress).
