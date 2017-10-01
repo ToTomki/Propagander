@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/article")
@@ -118,10 +120,10 @@ public class ArticleController {
     }
 
     @GetMapping("/articleList")
-    public String articleList(@ModelAttribute Model model, Pageable pageable){
-
-
-
+    public String articleList(Model model/*, Pageable pageable*/){
+        List<ArticleMySQL> articleList = new ArrayList<ArticleMySQL>();
+        articleList = articleRepository.findAll();
+        model.addAttribute("articleList", articleList);
         //Pageable pageable = new PageRequest(0, 5, Sort.Direction.DESC, "articleId");
         // Page<ArticleMySQL> articleList = articleRepository.findAll(pageable);
 //        model.addAttribute("listSize", page.getTotalPages());

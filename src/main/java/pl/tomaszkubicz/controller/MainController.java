@@ -24,48 +24,30 @@ ArticleRepository articleRepository;
 
     @GetMapping("/")
     public String mainPage(Model model){
-//        try {
-//            ArrayList<ArticleMySQL> mainPageArticles = articleRepository.findTop15ByArticleId();
-//            System.out.println(mainPageArticles.toString());
-//            System.out.println("terazdrukujemyzeroijeden");
-//            System.out.println(mainPageArticles.get(0).toString() + mainPageArticles.get(1).toString());
-//        }
-//        catch (Exception e){
-//            System.out.println("Znalezienie topów okazało się problemem");
-//        }
+
         List<ArticleMySQL> articleMainSide = articleRepository.findAll(); //todo it is very bad idea, it HAS TO be changed but I had a problem with repository. I will correct it when will have the version of app that will be... well, working. I think the problem can be data-jpa version (findTop doesn't work as I think it should)
-        List<ArticleMySQL> articleMainSupport = new ArrayList<ArticleMySQL>();
+        List<ArticleMySQL> articleMainSupport = new ArrayList();
         ArticleMySQL articleMain = new ArticleMySQL(); //Main article on the main page
 
         for (int i = articleMainSide.size(); i > 16; i--){
             articleMainSide.remove(i);
-            System.out.println("test2, test2, test2, test2, test2, test2, test2, test2, test2, test2, test2, test2, ");
-            System.out.println(articleMainSide);
         }
 
-        //try {
-            System.out.println("test 3, test 3, test 3, test 3, test 3, test 3, test 3, test 3, test 3, test 3, ");
+        try {
             if (articleMainSide.size() < 16) {
-                System.out.println(articleMainSide.size());
                 for (int i = articleMainSide.size() - 1; i >= 0; i--) {
                     if (articleMainSide.get(i) != null) {
-                        System.out.println(articleMain.toString() + " - it is articleMain");
                         articleMain = articleMainSide.get(i);
-                        System.out.println(articleMain);
                         articleMainSide.remove(i);
-                        System.out.println(articleMainSide);
                         break;
                     }
                 }
             } else {
                 articleMain = articleMainSide.get(articleMainSide.size() - 1);
-                System.out.println(articleMain);
                 articleMainSide.remove(articleMainSide.size() - 1);
-                System.out.println(articleMainSide + "test jakistam 555555, test jakistam 555555, test jakistam 555555, test jakistam 555555, test jakistam 555555, test jakistam 555555, ");
-            }
-            System.out.println("1111111111111111111111, test przed kolejnym tryem");
+                }
+
             try {
-                System.out.println("supporting 1 test, supporting 1 test, supporting 1 test, supporting 1 test, supporting 1 test, supporting 1 test, ");
                 if (articleMainSide.size() < 15) {
                     int j = 0;
                     for (int i = articleMainSide.size() - 1; i >= 0 && j < 3; i--) {
@@ -73,7 +55,6 @@ ArticleRepository articleRepository;
                             articleMainSupport.add(articleMainSide.get(i));
                             articleMainSide.remove(i);
                             j++;
-                            System.out.println("Koleeeeeeeeeeeejny test");
                         }
                     }
                 } else {
@@ -86,25 +67,11 @@ ArticleRepository articleRepository;
             catch(Exception e){
                 System.out.println("Supporting articles could not be loaded");
             }
-//        }
-//        catch(Exception e){
-//            System.out.println("Main article could not be loaded");
-//        }
-        System.out.println("test 4, test 4, test 4, test 4, test 4, test 4, test 4, test 4, test 4, ");
+        }
+        catch(Exception e){
+            System.out.println("Main article could not be loaded");
+        }
 
-
-
-//        List<ArticleMySQL> articleMainSupport = new ArrayList<ArticleMySQL>();
-//        if (articleMainSide.size() < 15){
-//        articleMainSupport = articleMainSide.subList(12, 14);
-//        System.out.println("test 4, test 4, test 4, test 4, test 4, test 4, test 4, test 4, test 4, ");
-//        }
-//        for (int i = 16; i < 12; i--){
-//            System.out.println(articleMainSide);
-//        articleMainSide.remove(i);
-//        System.out.println(articleMainSide);
-//        }
-//        System.out.println("gotowe");
         model.addAttribute("articleMainSide", articleMainSide);
         model.addAttribute("articleMainSupport", articleMainSupport);
         model.addAttribute("articleMain", articleMain);
@@ -148,13 +115,23 @@ ArticleRepository articleRepository;
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response/*, Model model*/){
+    public String logout(HttpServletRequest request, HttpServletResponse response, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        //model.addAttribute("user", new User());
-        return "/";
+
+        model.addAttribute("user", new User());
+        return "login";
+    }
+
+    @GetMapping("/loggedin")
+    public String loggedin(){
+        return "loggedin";
+    }
+    @GetMapping("/outlogged")
+    public String outlogged(Model model){
+        return "redirect:/";
     }
 
 //    @GetMapping("/logout")
@@ -165,9 +142,8 @@ ArticleRepository articleRepository;
 //    }
 
     @GetMapping("/contact")
-    @ResponseBody
     public String contact(){
-        return "Here will be located contact infos.";
+        return "contact";
     }
 
     @GetMapping("/403")

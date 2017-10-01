@@ -30,11 +30,14 @@ public class User {
     private String password;
     @Column(name="last_comment")
     private Timestamp userLastComment;
+    @Lob
+    @Column(name="description")
+    private String userDescription; // in the future possibilitz of creating description will be put in admin panel
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "commentedby")
 //    @Transient
     private List<ArticleComment> userComments;
 
-    public User(Long userId, String username, UserSex userSex, UserRole userRole, String password, Timestamp userLastComment, List<ArticleComment> userComments) {
+    public User(Long userId, String username, UserSex userSex, UserRole userRole, String password, Timestamp userLastComment, List<ArticleComment> userComments, String userDescription) {
         this.userId = userId;
         this.username = username;
         this.userSex = userSex;
@@ -42,6 +45,7 @@ public class User {
         this.password = password;
         this.userLastComment = userLastComment;
         this.userComments = userComments;
+        this.userDescription = userDescription;
     }
 
     public User(){};
@@ -95,6 +99,11 @@ public class User {
 
     public void setUserComments(List<ArticleComment> userComments) {this.userComments = userComments;}
 
+    public String getUserDescription() {        return userDescription;    }
+
+    public void setUserDescription(String userDescription) {        this.userDescription = userDescription;    }
+
+
 
     public User(UserForm userForm){
         this.username = userForm.getUsername();
@@ -103,6 +112,7 @@ public class User {
         this.password = userForm.getPassword();
         this.userLastComment = Timestamp.valueOf(LocalDateTime.now());
         this.userComments = null;
+        this.userDescription = null;
     }
 
 

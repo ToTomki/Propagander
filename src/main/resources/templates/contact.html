@@ -28,7 +28,7 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/article/articleList">Articles</a></li>
                 <li><a href="/user/editors">Editors</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li class="active"><a href="/contact">Contact</a></li>
                 <li sec:authorize="hasAuthority('ADMIN')"><a href="/article/add">New article</a></li>
                 <li sec:authorize="hasAuthority('REDACTOR')"><a href="/article/add">New article</a></li> <!--todo-->
                 <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
@@ -45,6 +45,14 @@
         </div>
     </div>
 </nav>
-<p th:text="${userData}">
+
+<div class="col-sm-8 text-left">
+    <h1>Contact</h1>
+    <p>Hi!</p>
+    <p>If you have some interesing news, you can send it to us at the following e-mail address fake@mail.com.</p>
+    <p>If you think this website is great/you found some errors/you want to recruit author of Propagander app, you can write to tomaszkubicz@gmail.com.</p>
+    <hr>
+</div>
+
 </body>
 </html>

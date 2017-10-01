@@ -1,7 +1,10 @@
 package pl.tomaszkubicz.model.user;
 
+import pl.tomaszkubicz.model.article.ArticleMySQLForm;
 import pl.tomaszkubicz.model.user.enums.UserRole;
 import pl.tomaszkubicz.model.user.enums.UserSex;
+
+import javax.persistence.Lob;
 
 
 public class UserForm {
@@ -59,6 +62,7 @@ public class UserForm {
         private UserSex userSex;
         private UserRole userRole;
         private String password;
+
 
         public Builder (String username, UserSex userSex, UserRole userRole, String password){
             this.username = username;

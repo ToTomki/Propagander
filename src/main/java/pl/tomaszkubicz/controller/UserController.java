@@ -12,6 +12,12 @@ import pl.tomaszkubicz.model.user.User;
 import pl.tomaszkubicz.model.user.UserForm;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static pl.tomaszkubicz.model.user.enums.UserRole.CHIEF;
+import static pl.tomaszkubicz.model.user.enums.UserRole.REDACTOR;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -40,6 +46,28 @@ public class UserController {
         user.setPassword(encoder.encodePassword((user.getPassword()), null));
         userRepository.save(user);
         return "user/successUser";
+    }
+
+    @GetMapping("/editors")
+    public String editors(Model model){
+        try{
+
+        List<User> editorList = userRepository.findByUserRole(REDACTOR);
+        editorList.addAll(userRepository.findByUserRole(CHIEF));
+        for (int i = editorList.size(); i > 0; i--){
+            if (editorList.get(i-1).getUserDescription() == null){
+                editorList.get(i-1).setUserDescription("There is no description of this editor yet. Maybe we should change it?");
+                userRepository.save(editorList.get(i-1)); // to not check this in the future again
+            }
+        }
+        model.addAttribute("editorList", editorList);
+        }
+
+        catch(IllegalArgumentException e) {
+            System.out.println("Probably there was something wrong with list of editors");
+            throw e;
+        }
+        return "/user/editors";
     }
 
     @GetMapping("/{userData}")

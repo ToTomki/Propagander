@@ -37,22 +37,24 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/article/{articleFile}", "/logout").hasAnyAuthority("ADMIN", "CHIEF", "REDACTOR", "USER")
-                    .antMatchers("/user/addUser", "/", "/user/{userData}", "/login", "/403").permitAll()
+                    .antMatchers("/", "/user/{userData}", "/article/articleList", "/login", "/403", "/loggedin", "/outlogged", "/contact").permitAll()
                     .antMatchers("/article/add").hasAnyAuthority("ADMIN", "CHIEF", "REDACTOR")
                     .antMatchers("/resources/**").permitAll()
+                    .antMatchers("/user/addUser").anonymous()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     //.successHandler(loginHandler)
                     .loginPage("/login")
+                    .successForwardUrl("/loggedin")
                     .failureUrl("/failureLogin")
-                    .successForwardUrl("/")
                     .permitAll()
                 .and()
                     .logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/")
-                    .permitAll();
+                    .logoutSuccessUrl("/outlogged")
+                    .permitAll()
+                .and().csrf().disable();
 
         http.exceptionHandling().accessDeniedPage("/403");
     }

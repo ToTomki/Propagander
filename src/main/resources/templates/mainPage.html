@@ -25,11 +25,16 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="/article/articleList">Articles</a></li>
-                <li><a href="#">Editors</a></li>
+                <li><a href="/user/editors">Editors</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/article/add">New article</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')"><a href="/article/add">New article</a></li>
+                <li sec:authorize="hasAuthority('REDACTOR')"><a href="/article/add">New article</a></li> <!--todo-->
+                <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                <li><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -49,7 +54,7 @@
 
             <div class="col-sm-8 text-left">
                 <h1>Welcome</h1>
-                <p>this is a main page of Propagander application. Portal is still not finished so please, do not be disappointed if not everything works as it should.</p>
+                <p>this is a main page of Propagander application. Portal is still not finished so please, do not be disappointed if not everything works as it should. You are welcome if you want to help with testing. You can create your own account with admin role.</p>
                 <hr>
             </div>
 

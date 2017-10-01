@@ -1,31 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+    <title>Propagander - the best Propaganda on the Internet</title>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <title>Propagander - Najlepsza propaganda w sieci!</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="css/main.css"></script>
+
 </head>
 <body>
+
+<nav class="navbar navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Propagander</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/article/articleList">Articles</a></li>
+                <li><a href="/user/editors">Editors</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')"><a href="/article/add">New article</a></li>
+                <li sec:authorize="hasAuthority('REDACTOR')"><a href="/article/add">New article</a></li> <!--todo-->
+                <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                <li  class="active"><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<p>Temporarily, registration allows setting up the user role.</p>
 <form action="#" th:action="@{/user/addUser}" enctype="multipart/form-data" th:object="${user}" method="post">
-    <label>Pseudonim:<br> <input type="text" th:field="*{username}" >
-        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Coś jest nie tak z pseudonimem</span><br></label>
-    <label>Hasło:<br> <input type="password" th:field="*{password}" >
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Coś jest nie tak z hasłem</span><br></label>
-    <label>Płeć:<br> <select th:field="*{userSex}">
-        <option value="MALE">Męska</option>
-        <option value="FEMALE">Żeńska</option>
+    <label>Nickname:<br> <input type="text" th:field="*{username}" >
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Something is wrong with username</span><br></label>
+    <label>Password:<br> <input type="password" th:field="*{password}" >
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Something is wrong with password</span><br></label>
+    <label>Sex (we mean natural specialization of organisms, not if you do it often):<br> <select th:field="*{userSex}">
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
     </select><br></label>
     <label>Rola:<br> <select th:field="*{userRole}">
         <option value="ADMIN">Administrator</option>
-        <option value="CHIEF">Redaktor naczelny</option>
-        <option value="REDACTOR">Redaktor</option>
-        <option value="USER">Użytkownik</option>
+        <option value="CHIEF">Editor in Chief</option>
+        <option value="REDACTOR">Editor</option>
+        <option value="USER">User</option>
     </select><br></label>
-    <input type="submit" value="Dodaj usera"/>
+    <input type="submit" value="Add user"/>
 </form>
 </body>
 </html>

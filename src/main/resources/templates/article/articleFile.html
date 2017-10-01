@@ -1,20 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+    <title>Propagander - the best Propaganda on the Internet</title>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <title>Propagander - Najlepsza propaganda w sieci!</title>
-</head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="css/main.css"></script>
 
-<body><label th:object="${article}">
+</head>
+<body>
+
+<nav class="navbar navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Propagander</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/article/articleList">Articles</a></li>
+                <li><a href="/user/editors">Editors</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')"><a href="/article/add">New article</a></li>
+                <li sec:authorize="hasAuthority('REDACTOR')"><a href="/article/add">New article</a></li> <!--todo-->
+                <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                <li  class="active"><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<label th:object="${article}">
 <h1 th:text="*{articleTitle}"></h1>
     <p><img th:src="*{articleImage}" alt="Wystąpił problem z ładowaniem zdjęcia"></p>
-Napisano przez: <p th:text="*{articleAuthor}"></p>
-    Data: <p th:text="*{articleDate}"></p>
+Written by: <p th:text="*{articleAuthor}"></p>
+    Date: <p th:text="*{articleDate}"></p>
 <p th:text="*{articleContent}"></p>
 <p text="Liczba polubień: " th:text="*{articleLikes}"></p>
     <p text="Liczba znielubień: " th:text="*{articleDislikes}"></p>
@@ -22,11 +59,11 @@ Napisano przez: <p th:text="*{articleAuthor}"></p>
 <br>
 <br>
 <form action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
-    <p>Nowy komentarz</p>
+    <p>New comment</p>
     <p><label sec:authorize="isAuthenticated()">Komentujesz jako: <b><p th:text="${actualUser}"></p></b></label></p>
 <!--    <p><label sec:authorize="isAnonymous()">Komentuj jako: <input type="text" th:field="*{anonAuthor}"></label></p>-->
-    <p><label>Nagłówek:<br> <input type="text" th:field="*{commentTitle}"></label></p>
-    <p><label>Treść:<br> <textarea rows="10" cols="15" th:field="*{commentContent}"/></label><br></p>
+    <p><label>Comment title:<br> <input type="text" th:field="*{commentTitle}"></label></p>
+    <p><label>Comment content:<br> <textarea rows="10" cols="15" th:field="*{commentContent}"/></label><br></p>
     <p><input type="submit" value="Dodaj komentarz"/></p>
 </form>
 </label>
