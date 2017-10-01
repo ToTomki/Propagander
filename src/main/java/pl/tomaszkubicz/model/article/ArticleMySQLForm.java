@@ -23,6 +23,7 @@ public class ArticleMySQLForm {
     private String articleTitle;
     @NotNull(message = "Należy podać treść artykulu")
     @Size(min = 1) //only for String, Collection, Map, Array and... null
+    @Lob
     private String articleContent;
 
 

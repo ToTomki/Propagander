@@ -1,5 +1,6 @@
 package pl.tomaszkubicz.model.article;
 
+        import org.hibernate.validator.constraints.Length;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.security.core.Authentication;
         import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,27 +20,32 @@ public class ArticleMySQL {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO) // this strategy is default
     private Long articleId;
-    @Column(name="Obrazek") //@Column is optional
+    @Column(name="Image") //@Column is optional
     private String articleImage; // name of img placed on the server or on an external hosting (in this case - www address)
-    @Column(name="Tytul")
+    @Column(name="Title")
     private String articleTitle;
-    @Column(name= "Zawartosc")
+    @Lob
+    @Column(name= "Content")
     private String articleContent;
-    @Column(name="Autor")
+    @Column(name="Author")
     private String articleAuthor;
-    @Column(name="Polubienia")
+    @Column(name="Likes")
     private int articleLikes;
-    @Column(name="Znielubienia")
+    @Column(name="Dislikes")
     private int articleDislikes;
-    @Column(name="Data")
+    @Column(name="Date")
     private Timestamp articleDate;
+    @Lob
+    @Column(name="Introduction")
+    private String articleIntroduction;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "commentedArticle")
     private List <ArticleComment> commentList;
 
     public ArticleMySQL() {
     }
 
-    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes, Timestamp articleDate, List commentList) {
+    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes, Timestamp articleDate, List commentList, String articleIntroduction) {
         this.articleId = articleId;
         this.articleImage = articleImage;
         this.articleTitle = articleTitle;
@@ -49,6 +55,7 @@ public class ArticleMySQL {
         this.articleDislikes = articleDislikes;
         this.articleDate = articleDate;
         this.commentList = commentList;
+        this.articleIntroduction = articleIntroduction;
     }
 
     public ArticleMySQL(ArticleMySQLForm articleMySQLForm){
@@ -60,6 +67,11 @@ public class ArticleMySQL {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         this.articleAuthor = authentication.getName();
         this.articleDate = Timestamp.valueOf(LocalDateTime.now());
+        StringBuilder stringBuilder = new StringBuilder();
+        if (articleContent.length() >= 100){
+            stringBuilder.append(this.articleContent.substring(0,99) + "...");
+            this.articleIntroduction = stringBuilder.toString();}
+        else this.articleIntroduction = articleContent;
     }
 
 
@@ -122,6 +134,10 @@ public class ArticleMySQL {
     public Timestamp getArticleDate() {return articleDate;}
 
     public void setArticleDate(Timestamp articleDate) {this.articleDate = articleDate; }
+
+    public String getArticleIntroduction() { return articleIntroduction; }
+
+    public void setArticleIntroduction(String articleIntroduction) { this.articleIntroduction = articleIntroduction; }
 
     public List getCommentList() { return commentList; }
 

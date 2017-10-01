@@ -21,6 +21,7 @@ public class ArticleComment {
     @Column (name = "Date")
     private Timestamp commentDate;
     @Column (name = "Content")
+    @Lob
     private String commentContent;
     @Column (name = "Title")
     private String commentTitle;

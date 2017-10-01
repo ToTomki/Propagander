@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/main.css">
+    <script src="css/main.css"></script>
 
 </head>
 <body>
 
-<nav class="customized-navbar navbar navbar-inverse">
+<nav class="navbar navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -26,9 +26,10 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Articles</a></li>
+                <li><a href="/article/articleList">Articles</a></li>
                 <li><a href="#">Editors</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/article/add">New article</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -37,37 +38,60 @@
     </div>
 </nav>
 
-<div class="container-fluid text-center">
-    <div class="customized-row content">
-        <div class="col-sm-8 text-left">
-            <h1>Welcome</h1>
-            <p>this is main page of Propagander. Portal is still not finished so please, do not be disappointed if not everything works as it should.</p>
-            <hr>
-            <h3>Here</h3>
-            <p>will be located last articles.</p>
-        </div>
-        <div class="col-sm-2 customized-sidenav">
-            <p><a href="#">Article 1</a></p>
-            <p><a href="#">Article 2</a></p>
-            <p><a href="#">Article 3</a></p>
-            <p><a href="#">Article 4</a></p>
-            <p><a href="#">Article 5</a></p>
-            <p><a href="#">Article 6</a></p>
-            <p><a href="#">Article 7</a></p>
-            <p><a href="#">Article 8</a></p>
-            <p><a href="#">Article 9</a></p>
-            <p><a href="#">Article 10</a></p>
-            <p><a href="#">Article 11</a></p>
-            <p><a href="#">Article 12</a></p>
-            <p><a href="#">Article 13</a></p>
+<div class="container">
 
-        </div>
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+
+            <div class="jumbotron">
+                <h1>Hello, world!</h1>
+                <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+            </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img th:src="${articleMain.articleImage}" alt="There should be loaded main article image">
+                        <div class="caption">
+                            <h3 th:text="${articleMain.articleTitle}"></h3>
+                            <p th:text="${articleMain.articleIntroduction}"></p>
+                        </div>
+                    </div>
+                    <div th:each="article : ${articleMainSupport}">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img th:src="${article.articleImage}" alt="There should be loaded article image">
+                                <div class="caption">
+                                    <h3 th:text="${article.articleTitle}"></h3>
+                                    <p th:text="${article.articleIntroduction}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div><!--/.col-xs-12.col-sm-9-->
+    </div><!--/row-->
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">Link</a>
+            </div>
+        </div><!--/.sidebar-offcanvas-->
+    <hr>
+
+    <footer>
+        <p>&copy; 2016 Company, Inc.</p>
+    </footer>
+
     </div>
-</div>
-
-<footer class="container-fluid text-center">
-    <p>Created by: Tomasz Kubicz</p>
-</footer>
+</div><!--/.container-->
 
 </body>
 </html>

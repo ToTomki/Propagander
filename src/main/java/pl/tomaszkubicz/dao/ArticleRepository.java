@@ -17,5 +17,6 @@ public interface ArticleRepository extends CrudRepository<ArticleMySQL, Long>{ /
     ArticleMySQL findByArticleTitle (String articleTitle);
     ArticleMySQL findByArticleId (Long articleId);
     List<ArticleMySQL> findTopByArticleId(int number);
-    Page<ArticleMySQL> findAll(Pageable pageable); //because of reading with for-each
+    //Page<ArticleMySQL> findAll(Pageable pageable);
+    List<ArticleMySQL> findAll();
 }

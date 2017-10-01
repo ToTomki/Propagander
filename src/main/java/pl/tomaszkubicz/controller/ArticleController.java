@@ -1,10 +1,8 @@
 package pl.tomaszkubicz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,11 +18,10 @@ import pl.tomaszkubicz.dao.ArticleRepository;
 import pl.tomaszkubicz.model.article.ArticleMySQLForm;
 import pl.tomaszkubicz.model.user.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Controller
 @RequestMapping(value = "/article")
@@ -121,14 +118,17 @@ public class ArticleController {
     }
 
     @GetMapping("/articleList")
-    public String articleList(@ModelAttribute Model model){
+    public String articleList(@ModelAttribute Model model, Pageable pageable){
 
-        Pageable pageable = new PageRequest(0, 5, Sort.Direction.DESC, "articleId");
 
-        Page<ArticleMySQL> articleList = articleRepository.findAll(pageable);
-        model.addAttribute("listSize", articleList.getTotalPages());
-        model.addAttribute("elements", "There are found: " + articleList.getTotalElements() + " articles");
+
+        //Pageable pageable = new PageRequest(0, 5, Sort.Direction.DESC, "articleId");
+        // Page<ArticleMySQL> articleList = articleRepository.findAll(pageable);
+//        model.addAttribute("listSize", page.getTotalPages());
+//        model.addAttribute("elements", "There are found: " + articleList.getTotalElements() + " articles");
         return "article/articleList";
     }
+
+
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.tomaszkubicz.dao.UserRepository;
 import pl.tomaszkubicz.model.user.User;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,6 +18,7 @@ public class ArticleCommentForm {
     private String commentAuthor;
     @Size(min = 3, max = 300, message = "Komentarz powinien zawierać od 3 do 300znaków")
     @NotNull(message = "Należy podać treść komentarza")
+    @Lob
     private String commentContent;
     @NotNull(message = "Należy podać tytuł komentarza")
     private String commentTitle;
