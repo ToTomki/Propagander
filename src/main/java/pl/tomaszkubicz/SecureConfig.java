@@ -46,12 +46,12 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                     //.successHandler(loginHandler)
                     .loginPage("/login")
                     .failureUrl("/failureLogin")
-                    .successForwardUrl("/article/add")
+                    .successForwardUrl("/")
                     .permitAll()
                 .and()
                     .logout()
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
+                    .logoutSuccessUrl("/")
                     .permitAll();
 
         http.exceptionHandling().accessDeniedPage("/403");

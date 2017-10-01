@@ -144,17 +144,17 @@ ArticleRepository articleRepository;
     @GetMapping("/failureLogin")
     @ResponseBody
     public String failureLogin(){
-        return "Logowanie nie przebiegło pomyślnie";
+        return "Logging in wasn't successful";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response, Model model){
+    public String logout(HttpServletRequest request, HttpServletResponse response/*, Model model*/){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        model.addAttribute("user", new User());
-        return "mainPage";
+        //model.addAttribute("user", new User());
+        return "/";
     }
 
 //    @GetMapping("/logout")
@@ -173,13 +173,13 @@ ArticleRepository articleRepository;
     @GetMapping("/403")
     @ResponseBody
     public String accessDenied(){
-        return "Nie masz uprawnień do przeglądania tej części strony";
+        return "You are not allowed to seeing this page.";
     }
 
     @GetMapping("/admin")
     @ResponseBody
     public String adminPanel(){
-        return "To powinien być panel administratora, ale nie został on jeszcze stworzony";
+        return "Here should be located admin panel but it wasn't created yet.";
     }
 }
 
