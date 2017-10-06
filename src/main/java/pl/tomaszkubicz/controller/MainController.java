@@ -152,10 +152,6 @@ ArticleRepository articleRepository;
         return "You are not allowed to seeing this page.";
     }
 
-    @GetMapping("/admin")
-    @ResponseBody
-    public String adminPanel(){
-        return "Here should be located admin panel but it wasn't created yet.";
-    }
+
 }
 

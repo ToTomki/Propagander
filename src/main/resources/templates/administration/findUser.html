@@ -25,7 +25,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="/article/articleList">Articles</a></li>
                 <li><a href="/user/editors">Editors</a></li>
                 <li><a href="/contact">Contact</a></li>
@@ -34,13 +34,13 @@
                 <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="hasAuthority('ADMIN')">
-                <li><a href="/administration/controlPanel"><span class="glyphicon glyphicon-wrench"></span> Control Panel</a></li>
+                <li><a href="/administration/controlPanel"><span class="active" class="glyphicon glyphicon-wrench"></span> Control Panel</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
-                <li  class="active"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -49,12 +49,32 @@
     </div>
 </nav>
 
-<form action="#" th:action="@{/login}" th:object="${user}" method="post" >
-    <p>Pseudonim:<br> <input type="text" th:field="*{username}"/></p>
-    <p>Hasło:<br> <input type="password" th:field="*{password}"/></p>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<div th:each="user : ${searchResult}">
+    <p th:text="${user.username}"></p>
+</div>
 
-    <p><input type="submit" value="Zaloguj"/></p>
-</form>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">The system found following users: </div>
+
+    <!-- Table -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>User Id</th>
+            <th>Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <div th:each="user : ${searchResult}">
+            <td><p th:text="${user.userId}"></p></td>
+            <td><p th:text="${user.username}"></p></td>
+        </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

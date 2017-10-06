@@ -33,6 +33,9 @@
                 <li sec:authorize="hasAuthority('REDACTOR')"><a href="/article/add">New article</a></li> <!--todo-->
                 <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="hasAuthority('ADMIN')">
+                <li><a href="/administration/controlPanel"><span class="glyphicon glyphicon-wrench"></span> Control Panel</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li  class="active"><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>

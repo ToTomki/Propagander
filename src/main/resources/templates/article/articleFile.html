@@ -33,6 +33,9 @@
                 <li sec:authorize="hasAuthority('REDACTOR')"><a href="/article/add">New article</a></li> <!--todo-->
                 <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="hasAuthority('ADMIN')">
+                <li><a href="/administration/controlPanel"><span class="glyphicon glyphicon-wrench"></span> Control Panel</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li  class="active"><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>
@@ -48,17 +51,18 @@
 
 
 <label th:object="${article}">
-<h1 th:text="*{articleTitle}"></h1>
+    <h1 th:text="*{articleTitle}"></h1>
     <p><img th:src="*{articleImage}" alt="Wystąpił problem z ładowaniem zdjęcia"></p>
 Written by: <p th:text="*{articleAuthor}"></p>
     Date: <p th:text="*{articleDate}"></p>
-<p th:text="*{articleContent}"></p>
-<p text="Liczba polubień: " th:text="*{articleLikes}"></p>
+    <p th:text="*{articleContent}"></p>
+    <p text="Liczba polubień: " th:text="*{articleLikes}"></p>
     <p text="Liczba znielubień: " th:text="*{articleDislikes}"></p>
+    <hr/>
 </label>
 <br>
 <br>
-<form action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
+<hr action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
     <p>New comment</p>
     <p><label sec:authorize="isAuthenticated()">Komentujesz jako: <b><p th:text="${actualUser}"></p></b></label></p>
 <!--    <p><label sec:authorize="isAnonymous()">Komentuj jako: <input type="text" th:field="*{anonAuthor}"></label></p>-->

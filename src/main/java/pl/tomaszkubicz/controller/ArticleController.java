@@ -123,8 +123,7 @@ public class ArticleController {
 
     @GetMapping("/articleList")
     public String articleList(Model model/*, Pageable pageable*/){
-        List<ArticleMySQL> articleList = new ArrayList<ArticleMySQL>();
-        articleList = articleRepository.findAll();
+        List<ArticleMySQL> articleList = articleRepository.findAll();
         Collections.reverse(articleList);
         //articleList.sort(Comparator.comparing(ArticleMySQL::getArticleId));
 
