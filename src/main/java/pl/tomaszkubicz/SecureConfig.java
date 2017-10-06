@@ -37,7 +37,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/article/{articleFile}", "/logout").hasAnyAuthority("ADMIN", "CHIEF", "REDACTOR", "USER")
-                    .antMatchers("/", "/user/{userData}", "/article/articleList", "/login", "/403", "/loggedin", "/outlogged", "/contact").permitAll()
+                    .antMatchers("/", "/user/{userData}", "/article/articlelist", "/login", "/403", "/loggedin", "/outlogged", "/contact").permitAll()
                     .antMatchers("/article/add").hasAnyAuthority("ADMIN", "CHIEF", "REDACTOR")
                     .antMatchers("/resources/**").permitAll()
                     .antMatchers("/user/addUser").anonymous()

@@ -23,6 +23,8 @@ import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -123,6 +125,10 @@ public class ArticleController {
     public String articleList(Model model/*, Pageable pageable*/){
         List<ArticleMySQL> articleList = new ArrayList<ArticleMySQL>();
         articleList = articleRepository.findAll();
+        Collections.reverse(articleList);
+        //articleList.sort(Comparator.comparing(ArticleMySQL::getArticleId));
+
+
         model.addAttribute("articleList", articleList);
         //Pageable pageable = new PageRequest(0, 5, Sort.Direction.DESC, "articleId");
         // Page<ArticleMySQL> articleList = articleRepository.findAll(pageable);

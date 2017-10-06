@@ -60,18 +60,19 @@
 
                 <div class="col-xs-12 col-sm-12">
                     <div class="thumbnail">
-                        <img th:src="${articleMain.articleImage}" alt="There should be loaded main article image">
+                        <a th:href="@{/article/} + ${articleMain.articleId}"><img th:src="${articleMain.articleImage}" alt="There should be loaded main article image"></a>
                         <div class="caption">
-                            <h3 th:text="${articleMain.articleTitle}"></h3>
+                            <a th:href="@{/article/} + ${articleMain.articleId}"><h3 th:text="${articleMain.articleTitle}"></h3></a>
                             <p th:text="${articleMain.articleIntroduction}"></p>
                         </div>
                     </div>
                     <div th:each="article : ${articleMainSupport}">
                         <div class="col-sm-6 col-md-4">
                             <div class="thumbnail">
-                                <img th:src="${article.articleImage}" alt="There should be loaded article image">
+                                <a th:href="@{/article/} + ${article.articleId}">
+                                    <img th:href="@{/article/} + ${article.articleId}" th:src="${article.articleImage}" alt="There should be loaded article image"></a>
                                 <div class="caption">
-                                    <h3 th:text="${article.articleTitle}"></h3>
+                                    <a th:href="@{/article/} + ${article.articleId}"><h3 th:text="${article.articleTitle}"></h3></a>
                                     <p th:text="${article.articleIntroduction}"></p>
                                 </div>
                             </div>
@@ -81,7 +82,7 @@
     </div><!--/row-->
         <div id="mySidenav" class="col-sm-2 sidenav">
             <div th:each="article : ${articleMainSide}">
-                <p><a href="/article/${article.articleId}" th:text="${article.articleTitle}">There should be showed link to article</a><hr/></p>
+                <p><a th:href="@{/article/} + ${article.articleId}" th:text="${article.articleTitle}">There should be showed link to article</a><hr/></p>
             </div>
         </div>
     </div>
