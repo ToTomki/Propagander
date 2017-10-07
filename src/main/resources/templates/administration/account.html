@@ -25,19 +25,21 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="/article/articleList">Articles</a></li>
                 <li><a href="/user/editors">Editors</a></li>
                 <li><a href="/contact">Contact</a></li>
                 <li sec:authorize="hasAuthority('ADMIN')"><a href="/article/add">New article</a></li>
                 <li sec:authorize="hasAuthority('REDACTOR')"><a href="/article/add">New article</a></li> <!--todo-->
                 <li sec:authorize="hasAuthority('CHIEF')"><a href="/article/add">New article</a></li>
+                <li sec:authorize="isAuthenticated()" class="active"><a href="/administration/account"></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="hasAuthority('ADMIN')">
                 <li><a href="/administration/controlPanel"><span class="glyphicon glyphicon-wrench"></span> Control Panel</a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
-                <li  class="active"><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
+                <li><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -49,27 +51,8 @@
     </div>
 </nav>
 
-
-<label th:object="${article}">
-    <h1 th:text="*{articleTitle}"></h1>
-    <p><img th:src="*{articleImage}" alt="Wystąpił problem z ładowaniem zdjęcia"></p>
-Written by: <p th:text="*{articleAuthor}"></p>
-    Date: <p th:text="*{articleDate}"></p>
-    <p th:text="*{articleContent}"></p>
-    <p><span class="glyphicon glyphicon-plus"></span> <a text=" Liczba polubień: " th:text="*{articleLikes}"></a></p>
-    <p><span class="glyphicon glyphicon-minus"></span> <a text=" Liczba znielubień: " th:text="*{articleDislikes}"></a></p>
-    <hr/>
-</label>
+<h2 th:text="${user.username}"></h2>
 <br>
-<br>
-<form action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
-    <p>New comment</p>
-    <p><label sec:authorize="isAuthenticated()">Komentujesz jako: <b><p th:text="${actualUser}"></p></b></label></p>
-<!--    <p><label sec:authorize="isAnonymous()">Komentuj jako: <input type="text" th:field="*{anonAuthor}"></label></p>-->
-    <p><label>Comment title:<br> <input type="text" th:field="*{commentTitle}"></label></p>
-    <p><label>Comment content:<br> <textarea rows="10" cols="15" th:field="*{commentContent}"/></label><br></p>
-    <p><input type="submit" value="Add comment"/></p>
-</form>
-</label>
+Here will be implemented possibility of changing password, avatar and seeing articles/comments written by user.
 </body>
 </html>

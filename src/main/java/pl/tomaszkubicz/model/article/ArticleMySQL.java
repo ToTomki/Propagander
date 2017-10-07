@@ -5,6 +5,7 @@ package pl.tomaszkubicz.model.article;
         import org.springframework.security.core.Authentication;
         import org.springframework.security.core.context.SecurityContextHolder;
         import pl.tomaszkubicz.auth.UserAuth;
+        import pl.tomaszkubicz.model.user.User;
 
         import javax.persistence.*;
         import java.sql.Timestamp;
@@ -30,7 +31,7 @@ public class ArticleMySQL {
     @Column(name="Author")
     private String articleAuthor;
     @Column(name="Likes")
-    private int articleLikes;
+    private int articleLikes; //fields articleLikes and dislikes are not dependant on cardinalities of likingUsers and dislikingUsers to not calculate it every time when the article is displaying
     @Column(name="Dislikes")
     private int articleDislikes;
     @Column(name="Date")
@@ -38,14 +39,23 @@ public class ArticleMySQL {
     @Lob
     @Column(name="Introduction")
     private String articleIntroduction;
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="article_likes",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> likingUsers;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="article_dislikes",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> dislikingUsers;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "commentedArticle")
     private List <ArticleComment> commentList;
 
     public ArticleMySQL() {
     }
 
-    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes, Timestamp articleDate, List commentList, String articleIntroduction) {
+    public ArticleMySQL(Long articleId, String articleImage, String articleTitle, String articleContent, String articleAuthor, int articleLikes, int articleDislikes, Timestamp articleDate, List <ArticleComment> commentList, String articleIntroduction, List likingUsers, List dislikingUsers) {
         this.articleId = articleId;
         this.articleImage = articleImage;
         this.articleTitle = articleTitle;
@@ -56,6 +66,8 @@ public class ArticleMySQL {
         this.articleDate = articleDate;
         this.commentList = commentList;
         this.articleIntroduction = articleIntroduction;
+        this.likingUsers = likingUsers;
+        this.dislikingUsers = dislikingUsers;
     }
 
     public ArticleMySQL(ArticleMySQLForm articleMySQLForm){
@@ -143,5 +155,12 @@ public class ArticleMySQL {
 
     public void setCommentList(List commentList) { this.commentList = commentList; }
 
+    public List getLikingUsers() { return likingUsers; }
+
+    public void setLikingUsers(List likingUsers) { this.likingUsers = likingUsers; }
+
+    public List getDislikingUsers() { return dislikingUsers; }
+
+    public void setDislikingUsers(List dislikingUsers) { this.dislikingUsers = dislikingUsers; }
 
 };

@@ -1,6 +1,8 @@
 package pl.tomaszkubicz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,9 +41,16 @@ public class AdministrationController {
             searchResult.add(userRepository.findByUsername(searchedUser));
             model.addAttribute("searchResult", searchResult);
 
-            System.out.println(searchResult);
             return "administration/findUser";
         }
+    }
+
+    @GetMapping("/administration/account")
+    public String account(Model model){
+
+        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", user);
+        return "administration/account";
     }
 }
 

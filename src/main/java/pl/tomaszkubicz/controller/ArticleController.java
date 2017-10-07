@@ -86,7 +86,6 @@ public class ArticleController {
         model.addAttribute("article", article);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("actualUser", authentication.getName());
-        System.out.println("Imię usera = " + authentication.getName());
         model.addAttribute("newCommentForm", new ArticleCommentForm());
         return "article/articleFile";
     }

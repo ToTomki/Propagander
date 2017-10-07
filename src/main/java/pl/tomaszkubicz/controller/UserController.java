@@ -70,13 +70,5 @@ public class UserController {
         return "/user/editors";
     }
 
-    @GetMapping("/{userData}")
-    public String userData(@PathVariable("userData") Long userData, Model model){
-
-        User user = userRepository.findByUserId(userData);
-        model.addAttribute("userData", user.toString());
-        return "user/userData";
-    }
-
 
 }

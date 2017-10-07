@@ -1,6 +1,7 @@
 package pl.tomaszkubicz.model.user;
 
 import pl.tomaszkubicz.model.article.ArticleComment;
+import pl.tomaszkubicz.model.article.ArticleMySQL;
 import pl.tomaszkubicz.model.user.enums.UserRole;
 import pl.tomaszkubicz.model.user.enums.UserSex;
 
@@ -33,6 +34,10 @@ public class User {
     @Lob
     @Column(name="description")
     private String userDescription; // in the future possibilitz of creating description will be put in admin panel
+    @ManyToMany(mappedBy = "likingUsers")
+    private List<ArticleMySQL> likedArticles;
+    @ManyToMany(mappedBy = "dislikingUsers")
+    private List<ArticleMySQL> dislikedArticles;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "commentedby")
 //    @Transient
     private List<ArticleComment> userComments;
