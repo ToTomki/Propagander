@@ -40,6 +40,9 @@ public class ArticleController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ArticleCommentRepository articleCommentRepository;
+
     @GetMapping("/add")
     // GetMapping is a shortcut of @RequestMapping(method RequestMethod.GET). Since few months there is no difference (before there was one, the consumes attribute)
     public String formAddArticle(Model model) {
@@ -86,6 +89,10 @@ public class ArticleController {
         model.addAttribute("article", article);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("actualUser", authentication.getName());
+        List<ArticleComment> commentList = articleRepository.findByArticleId(article.getArticleId()).getCommentList();
+        Collections.reverse(commentList);
+        System.out.println(commentList.toString());
+        model.addAttribute("commentList", commentList);
         model.addAttribute("newCommentForm", new ArticleCommentForm());
         return "article/articleFile";
     }
@@ -105,8 +112,11 @@ public class ArticleController {
         user.setUserLastComment(Timestamp.valueOf(LocalDateTime.now()));
         userRepository.save(user);//Repository.save() is a dual purposed method for Insert as well as Update
         }
-        else articleComment.setAnonUsername(anonUsername);
-        commentRepository.save(articleComment);
+        else {
+            articleComment.setAnonUsername(anonUsername);
+            commentRepository.save(articleComment);
+        }
+
 
         return "Komentarz dodany";
     }

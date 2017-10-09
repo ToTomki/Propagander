@@ -45,11 +45,11 @@
         </div>
     </div>
 </nav>
-
+<div>
 <div th:each="editor : ${editorList}">
     <p th:text="${editor.username}">There should be name of our editor</p>
     <p th:text="${editor.userDescription}">There should be info about our editor</p><hr/>
 </div>
-
+</div>
 </body>
 </html>

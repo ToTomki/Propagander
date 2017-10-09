@@ -125,7 +125,7 @@ ArticleRepository articleRepository;
         return "login";
     }
 
-    @GetMapping("/loggedin")
+    @PostMapping("/loggedin")
     public String loggedin(){
         return "loggedin";
     }

@@ -37,7 +37,7 @@
                 <li><a href="/administration/controlPanel"><span class="glyphicon glyphicon-wrench"></span> Control Panel</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
-                <li  class="active"><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
+                <li><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -52,24 +52,51 @@
 
 <label th:object="${article}">
     <h1 th:text="*{articleTitle}"></h1>
-    <p><img th:src="*{articleImage}" alt="Wystąpił problem z ładowaniem zdjęcia"></p>
+    <p><img th:src="*{articleImage}" alt="Something went wrong with loading the image."></p>
 Written by: <p th:text="*{articleAuthor}"></p>
     Date: <p th:text="*{articleDate}"></p>
     <p th:text="*{articleContent}"></p>
-    <p><span class="glyphicon glyphicon-plus"></span> <a text=" Liczba polubień: " th:text="*{articleLikes}"></a></p>
-    <p><span class="glyphicon glyphicon-minus"></span> <a text=" Liczba znielubień: " th:text="*{articleDislikes}"></a></p>
+    <p><span class="glyphicon glyphicon-plus"></span> <a th:text="*{articleLikes}"></a></p>
+    <p><span class="glyphicon glyphicon-minus"></span> <a th:text="*{articleDislikes}"></a></p>
     <hr/>
 </label>
 <br>
 <br>
-<form action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
-    <p>New comment</p>
-    <p><label sec:authorize="isAuthenticated()">Komentujesz jako: <b><p th:text="${actualUser}"></p></b></label></p>
+<p><label sec:authorize="isAnonymous()"><i>You can comment this artcile if you log in.</i></label></p>
+
+<form sec:authorize="isAuthenticated()" action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
+    <h3><p>New comment</p></h3>
+    <p><label>You comment the article as: <b><span sec:authorize="isAuthenticated()" th:text="${actualUser}"></span></b></label></p>
 <!--    <p><label sec:authorize="isAnonymous()">Komentuj jako: <input type="text" th:field="*{anonAuthor}"></label></p>-->
     <p><label>Comment title:<br> <input type="text" th:field="*{commentTitle}"></label></p>
     <p><label>Comment content:<br> <textarea rows="10" cols="15" th:field="*{commentContent}"/></label><br></p>
     <p><input type="submit" value="Add comment"/></p>
 </form>
+<hr/>
+<h3>Comments: </h3>
+
+<div th:each="comment : ${commentList}">
+    <p th:text="${comment.commentedby.username}"></p>
+    <p th:text="${comment.commentContent}"></p>
+</div>
+
+<div th:each="article : ${articleList}">
+    <div class="col-xs-12 col-sm-12">
+        <div class="thumbnail">
+            <a th:href="@{/article/} + ${article.articleId}">
+                <img th:src="${article.articleImage}" alt="There should be loaded article image"></a>
+            <a th:href="@{/article/} + ${article.articleId}"><h3 th:text="${article.articleTitle}"></h3></a>
+            <p text="Written by: " th:text="${article.articleAuthor}"></p>
+            <p text="Date: " th:text="${article.articleDate}"></p>
+            <p th:text="${article.articleIntroduction}"></p>
+            <p><span class="glyphicon glyphicon-plus"></span> <a th:text="${article.articleLikes}"></a></p>
+            <p><span class="glyphicon glyphicon-minus"></span> <a th:text="${article.articleDislikes}"></a></p>
+            <hr/>
+        </div>
+    </div>
+</div>
+</div>
+
 </label>
 </body>
 </html>

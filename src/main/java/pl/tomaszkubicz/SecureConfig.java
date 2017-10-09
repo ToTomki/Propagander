@@ -9,6 +9,7 @@ package pl.tomaszkubicz;
         import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
         import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
         import org.springframework.security.core.userdetails.UserDetailsService;
+        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
         import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
         import pl.tomaszkubicz.auth.UserAuth;
@@ -63,7 +64,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception{
         System.out.println("configureGlobal 1");
-        ShaPasswordEncoder encoder  = new ShaPasswordEncoder();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         auth.userDetailsService(userAuth).passwordEncoder(encoder);
         System.out.println("configureGlobal 2" + userAuth.toString() + auth.toString());
     }

@@ -37,7 +37,7 @@
                 <li><a href="/administration/controlPanel"><span class="glyphicon glyphicon-wrench"></span> Control Panel</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
-                <li  class="active"><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
+                <li><a href="/user/addUser"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -55,11 +55,11 @@
             <a th:href="@{/article/} + ${article.articleId}">
                 <img th:src="${article.articleImage}" alt="There should be loaded article image"></a>
                 <a th:href="@{/article/} + ${article.articleId}"><h3 th:text="${article.articleTitle}"></h3></a>
-                <p th:text="${article.articleAuthor}"></p>
-                <p th:text="${article.articleDate}"></p>
+                <p text="Written by: " th:text="${article.articleAuthor}"></p>
+                <p text="Date: " th:text="${article.articleDate}"></p>
                 <p th:text="${article.articleIntroduction}"></p>
-                Likes:<p th:text="${article.articleLikes}"></p>
-                Dislikes:<p th:text="${article.articleDislikes}"></p>
+                <p><span class="glyphicon glyphicon-plus"></span> <a th:text="${article.articleLikes}"></a></p>
+                <p><span class="glyphicon glyphicon-minus"></span> <a th:text="${article.articleDislikes}"></a></p>
             <hr/>
             </div>
         </div>
