@@ -130,7 +130,13 @@ public class User {
                 ", userRole=" + userRole +
                 ", password='" + password + '\'' +
                 ", userLastComment=" + userLastComment +
+                ", userDescription='" + userDescription + '\'' +
+                ", likedArticles=" + likedArticles +
+                ", dislikedArticles=" + dislikedArticles +
+                ", userComments=" + userComments +
                 '}';
     }
+
+
 
 }

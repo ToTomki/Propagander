@@ -45,6 +45,7 @@
             <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
+
         </div>
     </div>
 </nav>
@@ -70,14 +71,17 @@ Written by: <p th:text="*{articleAuthor}"></p>
 <!--    <p><label sec:authorize="isAnonymous()">Komentuj jako: <input type="text" th:field="*{anonAuthor}"></label></p>-->
     <p><label>Comment title:<br> <input type="text" th:field="*{commentTitle}"></label></p>
     <p><label>Comment content:<br> <textarea rows="10" cols="15" th:field="*{commentContent}"/></label><br></p>
+    <input type="hidden" name="articleNr" th:value="${article.articleId}"/>
     <p><input type="submit" value="Add comment"/></p>
 </form>
 <hr/>
 <h3>Comments: </h3>
 
 <div th:each="comment : ${commentList}">
-    <p th:text="${comment.commentedby.username}"></p>
+    <p th:text="'Written'+' '+'by:'+' '+${comment.commentedby.username}"></p>
+    <p th:text="${comment.commentTitle}"></p>
     <p th:text="${comment.commentContent}"></p>
+    <hr/>
 </div>
 
 <div th:each="article : ${articleList}">

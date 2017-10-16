@@ -62,6 +62,10 @@ public class UserController {
             }
         }
         model.addAttribute("editorList", editorList);
+            for (User editor : editorList) {
+                System.out.println(editor.toString());
+                System.out.println("----------------");
+            }
         }
 
         catch(IllegalArgumentException e) {

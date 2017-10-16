@@ -118,6 +118,11 @@ public class ArticleComment {
 
     public void setAnonUsername(String anonUsername) { this.anonUsername = anonUsername; }
 
+    public ArticleMySQL getCommentedArticle() { return commentedArticle; }
+
+    public void setCommentedArticle(ArticleMySQL commentedArticle) { this.commentedArticle = commentedArticle; }
+
+
 
     @Override
     public String toString() {
@@ -128,8 +133,8 @@ public class ArticleComment {
                 ", commentDate=" + commentDate +
                 ", commentContent='" + commentContent + '\'' +
                 ", commentTitle='" + commentTitle + '\'' +
-                ", commentedby=" + commentedby +
-                ", anonUsername='" + anonUsername + '\'' +
+                //", commentedby=" + commentedby +
+                //", anonUsername='" + anonUsername + '\'' +
                 '}';
     }
 

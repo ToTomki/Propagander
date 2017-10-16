@@ -151,9 +151,9 @@ public class ArticleMySQL {
 
     public void setArticleIntroduction(String articleIntroduction) { this.articleIntroduction = articleIntroduction; }
 
-    public List getCommentList() { return commentList; }
+    public List <ArticleComment> getCommentList() { return commentList; }
 
-    public void setCommentList(List commentList) { this.commentList = commentList; }
+    public void setCommentList(List <ArticleComment> commentList) { this.commentList = commentList; }
 
     public List getLikingUsers() { return likingUsers; }
 

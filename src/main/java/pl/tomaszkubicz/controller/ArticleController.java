@@ -91,7 +91,6 @@ public class ArticleController {
         model.addAttribute("actualUser", authentication.getName());
         List<ArticleComment> commentList = articleRepository.findByArticleId(article.getArticleId()).getCommentList();
         Collections.reverse(commentList);
-        System.out.println(commentList.toString());
         model.addAttribute("commentList", commentList);
         model.addAttribute("newCommentForm", new ArticleCommentForm());
         return "article/articleFile";
@@ -99,18 +98,28 @@ public class ArticleController {
 
     @PostMapping("/addComment")
     @ResponseBody
-    public String addComment(@ModelAttribute("newComment") ArticleCommentForm newComment, @ModelAttribute("actualUser") String anonUsername){
+    public String addComment(@ModelAttribute("newComment") ArticleCommentForm newComment, @RequestParam("articleNr") Long articleNr, @ModelAttribute("actualUser") String anonUsername){
 
         ArticleComment articleComment = new ArticleComment(newComment);
         //ArrayList<ArticleComment> commentList = new ArrayList<ArticleComment>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authName = authentication.getName();
         if(authName != null){
-        User user = userRepository.findByUsername(authName);
-        articleComment.setCommentedby(user);
-        user.getUserComments().add(articleComment);
-        user.setUserLastComment(Timestamp.valueOf(LocalDateTime.now()));
-        userRepository.save(user);//Repository.save() is a dual purposed method for Insert as well as Update
+            User user = userRepository.findByUsername(authName);
+            articleComment.setCommentedby(user);
+            articleComment.setCommentedArticle(articleRepository.findByArticleId(articleNr));
+//            ArticleMySQL articleMySQL = articleRepository.findByArticleId(articleNr);
+//            List<ArticleComment> supportingList = articleMySQL.getCommentList();
+//            supportingList.add(articleComment);
+//            articleMySQL.setCommentList(supportingList);
+//            articleRepository.save(articleMySQL);
+            /*List<ArticleComment> supportingList = user.getUserComments();
+            supportingList.add(articleComment);
+            user.setUserComments(supportingList);*/
+            //user.getUserComments().add(articleComment);
+            user.setUserLastComment(Timestamp.valueOf(LocalDateTime.now()));
+            articleCommentRepository.save(articleComment);
+            userRepository.save(user);//Repository.save() is a dual purposed method for Insert as well as Update
         }
         else {
             articleComment.setAnonUsername(anonUsername);
@@ -126,7 +135,6 @@ public class ArticleController {
     @ResponseBody
     public String showComment(@PathVariable("comment") Long commentId){
         ArticleComment comment = commentRepository.findByCommentId(commentId);
-
         return comment.toString();
     }
 
