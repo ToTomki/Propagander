@@ -42,7 +42,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/article/add").hasAnyAuthority("ADMIN", "CHIEF", "REDACTOR")
                     .antMatchers("/administration/account").authenticated()
                     .antMatchers("/administration/controlPanel", "/administration/findUser").hasAuthority("ADMIN")
-                    .antMatchers("/resources/**").permitAll()
+                    .antMatchers("/resources/**", "/css/**").permitAll()
                     .antMatchers("/user/addUser").anonymous()
                     .anyRequest().authenticated()
                 .and()
@@ -68,6 +68,8 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userAuth).passwordEncoder(encoder);
         System.out.println("configureGlobal 2" + userAuth.toString() + auth.toString());
     }
+
+
 
 
 }

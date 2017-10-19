@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <script src="../js/bootstrap.min.js" type="text/js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="css/main.css"></script>
+
 
 </head>
 <body>
@@ -68,7 +68,7 @@ Written by: <p th:text="*{articleAuthor}"></p>
 <form sec:authorize="isAuthenticated()" action="#" th:action="@{/article/addComment}" enctype="multipart/form-data"  th:object="${newCommentForm}" method="post">
     <h3><p>New comment</p></h3>
     <p><label>You comment the article as: <b><span sec:authorize="isAuthenticated()" th:text="${actualUser}"></span></b></label></p>
-<!--    <p><label sec:authorize="isAnonymous()">Komentuj jako: <input type="text" th:field="*{anonAuthor}"></label></p>-->
+<!--    <p><label sec:authorize="isAnonymous()">Comment as: <input type="text" th:field="*{anonAuthor}"></label></p>-->
     <p><label>Comment title:<br> <input type="text" th:field="*{commentTitle}"></label></p>
     <p><label>Comment content:<br> <textarea rows="10" cols="15" th:field="*{commentContent}"/></label><br></p>
     <input type="hidden" name="articleNr" th:value="${article.articleId}"/>
@@ -82,22 +82,6 @@ Written by: <p th:text="*{articleAuthor}"></p>
     <p th:text="${comment.commentTitle}"></p>
     <p th:text="${comment.commentContent}"></p>
     <hr/>
-</div>
-
-<div th:each="article : ${articleList}">
-    <div class="col-xs-12 col-sm-12">
-        <div class="thumbnail">
-            <a th:href="@{/article/} + ${article.articleId}">
-                <img th:src="${article.articleImage}" alt="There should be loaded article image"></a>
-            <a th:href="@{/article/} + ${article.articleId}"><h3 th:text="${article.articleTitle}"></h3></a>
-            <p text="Written by: " th:text="${article.articleAuthor}"></p>
-            <p text="Date: " th:text="${article.articleDate}"></p>
-            <p th:text="${article.articleIntroduction}"></p>
-            <p><span class="glyphicon glyphicon-plus"></span> <a th:text="${article.articleLikes}"></a></p>
-            <p><span class="glyphicon glyphicon-minus"></span> <a th:text="${article.articleDislikes}"></a></p>
-            <hr/>
-        </div>
-    </div>
 </div>
 </div>
 
