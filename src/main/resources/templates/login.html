@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/login.css" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
     <script src="js/bootstrap.min.js" type="text/js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -47,12 +50,16 @@
     </div>
 </nav>
 
-<form action="#" th:action="@{/login}" th:object="${user}" method="post" >
-    <p>Username:<br> <input type="text" th:field="*{username}"/></p>
-    <p>Password:<br> <input type="password" th:field="*{password}"/></p>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-    <p><input type="submit" value="Zaloguj"/></p>
+<form action="#" th:action="@{/login}" th:object="${user}" method="post" class="form-signin">
+    <div class="container-login">
+        <div class="row">
+            <h1 class="text-center login-title">Confirm your identity</h1>
+            <input type="text" th:field="*{username}" class="form-control" placeholder="Login" required autofocus>
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+        </div>
+    </div>
 </form>
+
 </body>
 </html>

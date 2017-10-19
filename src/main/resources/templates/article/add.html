@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
     <script src="../js/bootstrap.min.js" type="text/js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -48,16 +50,17 @@
     </div>
 </nav>
 
-
+<div class="container">
 <form action="#" th:action="@{/article/add}" enctype="multipart/form-data" th:object="${article}" method="post">
-   <label>Link do zdjęcia:<br> <input type="text" th:field="*{articleImage}" >
-        <span th:if="${#fields.hasErrors('articleImage')}" th:errors="*{articleImage}">Coś jest nie tak z Img</span><br></label>
-    <label>Tytuł:<br> <input type="text" th:field="*{articleTitle}" >
-        <span th:if="${#fields.hasErrors('articleTitle')}" th:errors="*{articleTitle}">Coś jest nie tak z Tytulem</span><br></label>
-    <label>Treść:<br> <textarea rows="10" cols="15" th:field="*{articleContent}" /> <span th:if="${#fields.hasErrors('articleContent')}" th:errors="*{articleContent}">Coś jest nie tak z tekstem artykulu</span></label><br>
+   <label>Image link:<br> <input type="text" th:field="*{articleImage}" >
+        <span th:if="${#fields.hasErrors('articleImage')}" th:errors="*{articleImage}">Something's wrong with an image</span><br></label>
+    <label>Title:<br> <input type="text" th:field="*{articleTitle}" >
+        <span th:if="${#fields.hasErrors('articleTitle')}" th:errors="*{articleTitle}">Something's wrong with a title</span><br></label>
+    <label>Content:<br> <textarea rows="10" cols="15" th:field="*{articleContent}" /> <span th:if="${#fields.hasErrors('articleContent')}" th:errors="*{articleContent}">Something's wrong with text </span></label><br>
 
-    <p><input type="submit" value="Dodaj artykuł"/></p>
+    <p><input type="submit" value="Add article"/></p>
 
 </form>
+</div>
 </body>
 </html>
