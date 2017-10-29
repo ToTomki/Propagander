@@ -31,8 +31,6 @@ public class ArticleCommentForm {
         this.commentContent = commentContent;
         this.commentTitle = commentTitle;
         this.commentUser = commentUser;
-//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//            this.commentUser = userRepository.findByUsername(authentication.getName());}
         this.anonUsername = anonUsername;
     }
 

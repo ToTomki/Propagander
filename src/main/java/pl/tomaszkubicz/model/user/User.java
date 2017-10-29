@@ -39,7 +39,6 @@ public class User {
     @ManyToMany(mappedBy = "dislikingUsers")
     private List<ArticleMySQL> dislikedArticles;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "commentedby")
-//    @Transient
     private List<ArticleComment> userComments;
 
     public User(Long userId, String username, UserSex userSex, UserRole userRole, String password, Timestamp userLastComment, List<ArticleComment> userComments, String userDescription) {
@@ -99,7 +98,6 @@ public class User {
 
     public void setUserLastComment(Timestamp userLastComment) {        this.userLastComment = userLastComment;}
 
-//    @Transient
     public List<ArticleComment> getUserComments() {        return userComments;}
 
     public void setUserComments(List<ArticleComment> userComments) {this.userComments = userComments;}

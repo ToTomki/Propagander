@@ -56,31 +56,10 @@ public class ArticleController {
         if (result.hasErrors()) {
             return "article/add";
         }
-//        if (!image.isEmpty()) {
-//            try {
-
         ArticleMySQL article = new ArticleMySQL(newArticle);
-//                UUID uuid = UUID.randomUUID();
-//                String imageName = "/images/articleHeaders/header_" + uuid.toString();
-//                byte[] bytes = image.getBytes();
-//                File fsFile = new File(imageName);
-//                    fsFile.mkdirs();
-//                fsFile.createNewFile();
-//                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fsFile));
-//                stream.write(bytes);
-//                stream.close();
-        //I need to change it in the future. Images should be stored outside the server (on amazon, google or smth like that)
         articleRepository.save(article);
         return "article/success";
-        //          } catch (Exception e) {
-        //            logger.error("Plik nie mógł zostać umieszczony na serwerze", e);
-        //        return "article/add";
-        //  }
-        //}
-        //else{
-        //  logger.error("Wysłany plik jest pusty");
-        //return "article/add";
-        //}
+
     }
 
     @GetMapping("/{articleFile}")
@@ -101,22 +80,12 @@ public class ArticleController {
     public String addComment(@ModelAttribute("newComment") ArticleCommentForm newComment, @RequestParam("articleNr") Long articleNr, @ModelAttribute("actualUser") String anonUsername){
 
         ArticleComment articleComment = new ArticleComment(newComment);
-        //ArrayList<ArticleComment> commentList = new ArrayList<ArticleComment>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authName = authentication.getName();
         if(authName != null){
             User user = userRepository.findByUsername(authName);
             articleComment.setCommentedby(user);
             articleComment.setCommentedArticle(articleRepository.findByArticleId(articleNr));
-//            ArticleMySQL articleMySQL = articleRepository.findByArticleId(articleNr);
-//            List<ArticleComment> supportingList = articleMySQL.getCommentList();
-//            supportingList.add(articleComment);
-//            articleMySQL.setCommentList(supportingList);
-//            articleRepository.save(articleMySQL);
-            /*List<ArticleComment> supportingList = user.getUserComments();
-            supportingList.add(articleComment);
-            user.setUserComments(supportingList);*/
-            //user.getUserComments().add(articleComment);
             user.setUserLastComment(Timestamp.valueOf(LocalDateTime.now()));
             articleCommentRepository.save(articleComment);
             userRepository.save(user);//Repository.save() is a dual purposed method for Insert as well as Update
@@ -139,17 +108,11 @@ public class ArticleController {
     }
 
     @GetMapping("/articleList")
-    public String articleList(Model model/*, Pageable pageable*/){
+    public String articleList(Model model){
         List<ArticleMySQL> articleList = articleRepository.findAll();
         Collections.reverse(articleList);
-        //articleList.sort(Comparator.comparing(ArticleMySQL::getArticleId));
-
-
         model.addAttribute("articleList", articleList);
-        //Pageable pageable = new PageRequest(0, 5, Sort.Direction.DESC, "articleId");
-        // Page<ArticleMySQL> articleList = articleRepository.findAll(pageable);
-//        model.addAttribute("listSize", page.getTotalPages());
-//        model.addAttribute("elements", "There are found: " + articleList.getTotalElements() + " articles");
+
         return "article/articleList";
     }
 
